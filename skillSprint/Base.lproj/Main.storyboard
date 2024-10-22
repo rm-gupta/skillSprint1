@@ -167,6 +167,157 @@
             </objects>
             <point key="canvasLocation" x="55.725190839694655" y="3.5211267605633805"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="xjn-43-XDR">
+            <objects>
+                <viewController id="7y5-Hc-Pbr" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="odz-1t-QSZ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pz3-Au-C7f">
+                                <rect key="frame" x="133" y="777" width="127" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Upload Video"/>
+                                <connections>
+                                    <segue destination="sqF-ZD-4b7" kind="show" id="iTe-en-MnI"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="aNc-RQ-fWQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="pz3-Au-C7f" firstAttribute="centerY" secondItem="odz-1t-QSZ" secondAttribute="centerY" constant="368.5" id="QDe-51-UEU"/>
+                            <constraint firstItem="pz3-Au-C7f" firstAttribute="centerX" secondItem="odz-1t-QSZ" secondAttribute="centerX" id="Xxk-r6-7fF"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="vEb-3l-DDt"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8cc-as-DL5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2654" y="4"/>
+        </scene>
+        <!--Video Upload View Controller-->
+        <scene sceneID="NNZ-Kg-PCZ">
+            <objects>
+                <viewController id="sqF-ZD-4b7" customClass="VideoUploadViewController" customModule="skillSprint" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FeB-qK-Wph">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDt-RH-9xX">
+                                <rect key="frame" x="157" y="321" width="79" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Record"/>
+                                <connections>
+                                    <action selector="recordVideo:" destination="sqF-ZD-4b7" eventType="touchUpInside" id="jfq-fb-4GO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HZi-s6-asl">
+                                <rect key="frame" x="157" y="442" width="79" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Upload"/>
+                                <connections>
+                                    <action selector="uploadVideo:" destination="sqF-ZD-4b7" eventType="touchUpInside" id="1qx-z7-dNY"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="yvs-hG-5Zi"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="HZi-s6-asl" firstAttribute="centerY" secondItem="FeB-qK-Wph" secondAttribute="centerY" constant="33.5" id="DD4-MD-9hw"/>
+                            <constraint firstItem="EDt-RH-9xX" firstAttribute="centerX" secondItem="FeB-qK-Wph" secondAttribute="centerX" id="Ic2-C0-NkL"/>
+                            <constraint firstItem="HZi-s6-asl" firstAttribute="centerX" secondItem="FeB-qK-Wph" secondAttribute="centerX" id="lzQ-HM-0zI"/>
+                            <constraint firstItem="EDt-RH-9xX" firstAttribute="centerY" secondItem="FeB-qK-Wph" secondAttribute="centerY" constant="-87.5" id="qM0-y8-tjg"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="pSE-R2-HfW"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rF8-ah-F2s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="982" y="796"/>
+        </scene>
+        <!--Video Player View Controller-->
+        <scene sceneID="x9Y-mL-Rwj">
+            <objects>
+                <viewController storyboardIdentifier="VideoPlayerViewController" id="puB-zr-Nnd" customClass="VideoPlayerViewController" customModule="skillSprint" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YqL-OV-43G">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A2L-xK-PLt">
+                                <rect key="frame" x="166.66666666666666" y="708" width="60" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Next"/>
+                                <connections>
+                                    <segue destination="WbA-Hi-dDE" kind="show" id="SlS-FM-DWd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="xCQ-li-I6w"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="A2L-xK-PLt" firstAttribute="centerY" secondItem="YqL-OV-43G" secondAttribute="centerY" constant="299.5" id="d2N-hC-XJd"/>
+                            <constraint firstItem="A2L-xK-PLt" firstAttribute="centerX" secondItem="YqL-OV-43G" secondAttribute="centerX" id="sTb-rL-PeC"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="owS-4m-FGv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1811" y="796"/>
+        </scene>
+        <!--Video List View Controller-->
+        <scene sceneID="JS5-NN-vbj">
+            <objects>
+                <viewController id="WbA-Hi-dDE" customClass="VideoListViewController" customModule="skillSprint" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="39P-xd-gLV">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jiq-8E-3Ow">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="VideoCell" textLabel="ZT5-JK-gGv" style="IBUITableViewCellStyleDefault" id="Wb0-oT-kun">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Wb0-oT-kun" id="945-oR-cHH">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZT5-JK-gGv">
+                                                    <rect key="frame" x="20" y="0.0" width="353" height="43.666667938232422"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SuS-dZ-Jyh"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SuS-dZ-Jyh" firstAttribute="trailing" secondItem="jiq-8E-3Ow" secondAttribute="trailing" id="YkA-KZ-fWK"/>
+                            <constraint firstItem="jiq-8E-3Ow" firstAttribute="leading" secondItem="SuS-dZ-Jyh" secondAttribute="leading" id="tmM-0x-QXX"/>
+                            <constraint firstItem="SuS-dZ-Jyh" firstAttribute="bottom" secondItem="jiq-8E-3Ow" secondAttribute="bottom" id="uFx-CS-9Na"/>
+                            <constraint firstItem="jiq-8E-3Ow" firstAttribute="top" secondItem="SuS-dZ-Jyh" secondAttribute="top" id="ubv-qM-NvE"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="WOm-Fu-DgT"/>
+                    <connections>
+                        <outlet property="tableView" destination="jiq-8E-3Ow" id="rc2-Hk-2RE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jbR-zF-2Vu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2653" y="796"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="jvN-b5-GMk"/>

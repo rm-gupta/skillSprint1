@@ -140,8 +140,22 @@
                     <view key="view" contentMode="scaleToFill" id="0bj-M3-UJw">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7rG-o1-GIA">
+                                <rect key="frame" x="133" y="750" width="127" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Upload VIdeo"/>
+                                <connections>
+                                    <segue destination="sqF-ZD-4b7" kind="show" id="gNa-bg-oXK"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="xkX-wW-zj1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="7rG-o1-GIA" firstAttribute="centerX" secondItem="0bj-M3-UJw" secondAttribute="centerX" id="2fx-3H-A1j"/>
+                            <constraint firstItem="7rG-o1-GIA" firstAttribute="centerY" secondItem="0bj-M3-UJw" secondAttribute="centerY" constant="341.5" id="RXe-up-ZNP"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="J1J-Gd-Bdm"/>
                 </viewController>
@@ -179,9 +193,6 @@
                                 <rect key="frame" x="133" y="777" width="127" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Upload Video"/>
-                                <connections>
-                                    <segue destination="sqF-ZD-4b7" kind="show" id="iTe-en-MnI"/>
-                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aNc-RQ-fWQ"/>

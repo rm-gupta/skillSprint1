@@ -29,24 +29,27 @@ class EditProfileViewController: UIViewController {
     
     // If the save button is pressed, this saves that info
     @IBAction func saveButtonPressed(_ sender: Any) {
-        //cast as a textChanger
-        let otherVC = delegateText as! TextChanger
-        let newName = nameField.text ?? "" // Default to empty string if nil
-        let newTagline = taglineField.text ?? "" // Default to empty string if nil
+        // Safely unwrap delegateText and cast it as TextChanger
+        if let otherVC = delegateText as? TextChanger {
+            let newName = nameField.text ?? "" // Default to empty string if nil
+            let newTagline = taglineField.text ?? "" // Default to empty string if nil
 
-        // Call delegate methods with unwrapped values
-        otherVC.changeName(newName: newName)
-        otherVC.changeTagline(newTagline: newTagline)
-        // Upload profile photo to Firebase
-                if let image = selectedImage {
-                    uploadProfilePhoto(image: image)
-                }
-        self.dismiss(animated: true)
-
-    
+            // Call delegate methods with unwrapped values
+            otherVC.changeName(newName: newName)
+            otherVC.changeTagline(newTagline: newTagline)
+            
+            // Upload profile photo to Firebase
+            if let image = selectedImage {
+                uploadProfilePhoto(image: image)
+            }
+            
+            self.dismiss(animated: true)
+        } else {
+            print("Error: delegateText is nil or doesn't conform to TextChanger.")
+        }
     }
     
-    // Function to change the user's profile photo    
+    // Function to change the user's profile photo
     @IBAction func uploadUserPhoto(_ sender: Any) {
         let vc = UIImagePickerController()
         vc.sourceType = .photoLibrary

@@ -30,23 +30,27 @@ class EditProfileViewController: UIViewController {
     // If the save button is pressed, this saves that info
     @IBAction func saveButtonPressed(_ sender: Any) {
         // Safely unwrap delegateText and cast it as TextChanger
-        if let otherVC = delegateText as? TextChanger {
-            let newName = nameField.text ?? "" // Default to empty string if nil
-            let newTagline = taglineField.text ?? "" // Default to empty string if nil
+           if let otherVC = delegateText as? TextChanger {
+               // Check if nameField has a non-empty string, otherwise, keep the existing name
+               if let newName = nameField.text, !newName.isEmpty {
+                   otherVC.changeName(newName: newName)
+               }
 
-            // Call delegate methods with unwrapped values
-            otherVC.changeName(newName: newName)
-            otherVC.changeTagline(newTagline: newTagline)
-            
-            // Upload profile photo to Firebase
-            if let image = selectedImage {
-                uploadProfilePhoto(image: image)
-            }
-            
-            self.dismiss(animated: true)
-        } else {
-            print("Error: delegateText is nil or doesn't conform to TextChanger.")
-        }
+               // Check if taglineField has a non-empty string, otherwise, keep the existing tagline
+               if let newTagline = taglineField.text, !newTagline.isEmpty {
+                   otherVC.changeTagline(newTagline: newTagline)
+               }
+
+               // Upload profile photo to Firebase if an image is selected
+               if let image = selectedImage {
+                   uploadProfilePhoto(image: image)
+               }
+
+               // Dismiss the current view controller after saving
+               self.dismiss(animated: true)
+           } else {
+               print("Error: delegateText is nil or doesn't conform to TextChanger.")
+           }
     }
     
     // Function to change the user's profile photo

@@ -15,15 +15,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="logoImage" translatesAutoresizingMaskIntoConstraints="NO" id="DPJ-kQ-eFL">
-                                <rect key="frame" x="-102" y="74" width="596" height="331"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="DPJ-kQ-eFL" secondAttribute="height" multiplier="15:8" id="QdG-BM-Wwy"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pfJ-Gn-5Fl">
-                                <rect key="frame" x="16" y="358" width="361" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pfJ-Gn-5Fl">
+                                <rect key="frame" x="94.333333333333329" y="397.33333333333331" width="204.66666666666669" height="57.333333333333314"/>
                                 <attributedString key="attributedText">
                                     <fragment content="SkillSprint">
                                         <attributes>
@@ -35,12 +28,21 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoImage" translatesAutoresizingMaskIntoConstraints="NO" id="DPJ-kQ-eFL">
+                                <rect key="frame" x="-46" y="91" width="484" height="298"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="0.96078431372549022" blue="0.75686274509803919" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="DPJ-kQ-eFL" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="0EX-JD-mNP"/>
-                            <constraint firstItem="DPJ-kQ-eFL" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ksM-QH-3ZO"/>
+                            <constraint firstItem="pfJ-Gn-5Fl" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="5wJ-vQ-8EO"/>
+                            <constraint firstItem="pfJ-Gn-5Fl" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="AbI-zO-ErT"/>
+                            <constraint firstItem="DPJ-kQ-eFL" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="JNI-C8-4yo"/>
+                            <constraint firstItem="pfJ-Gn-5Fl" firstAttribute="top" secondItem="DPJ-kQ-eFL" secondAttribute="bottom" constant="8.3300000000000001" id="Wv0-m9-PCg"/>
+                            <constraint firstAttribute="trailing" secondItem="DPJ-kQ-eFL" secondAttribute="trailing" constant="-45" id="eQq-ev-m3N"/>
+                            <constraint firstItem="DPJ-kQ-eFL" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="-46" id="kyC-lY-NuT"/>
+                            <constraint firstItem="DPJ-kQ-eFL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="32" id="qJy-Zd-wdU"/>
                         </constraints>
                     </view>
                 </viewController>

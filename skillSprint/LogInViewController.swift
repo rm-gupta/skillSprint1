@@ -24,6 +24,9 @@ class LogInViewController: UIViewController {
             return
         }
 
+        // Set the shared username before creating the account
+        SharedData.shared.username = email
+        
         // Attempt to log the user in
         Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
             if let error = error as NSError? {

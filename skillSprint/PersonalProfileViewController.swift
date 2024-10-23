@@ -12,13 +12,21 @@ protocol TextChanger {
     func changeTagline(newTagline: String)
 }
 
-class PersonalProfileViewController: UIViewController, TextChanger {
-    
+protocol ProfileImageUpdater {
+    func updateProfileImage(newImage: UIImage)
+}
+
+class PersonalProfileViewController: UIViewController, TextChanger, ProfileImageUpdater {
+
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var taglineLabel: UILabel!
     @IBOutlet weak var profImgView: UIImageView!
     @IBOutlet weak var editProfButton: UIButton!
+    
+    var currentName: String?
+    var currentTagline: String?
+    
 
     
     let greenColor = UIColor(red: 125/255.0, green: 207/255.0, blue: 150/255.0, alpha: 1.0)
@@ -26,7 +34,9 @@ class PersonalProfileViewController: UIViewController, TextChanger {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // Set the username label from SharedData
+        usernameLabel.text = SharedData.shared.username
+        
         editProfButton.backgroundColor = greenColor
         
         //add gear icon button
@@ -70,11 +80,17 @@ class PersonalProfileViewController: UIViewController, TextChanger {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // Update the currentName and currentTagline with existing values
+        currentName = nameLabel.text
+        currentTagline = taglineLabel.text
+        
         // Retrieve the stored URL
         if let imageUrlString = UserDefaults.standard.string(forKey: "profileImageURL"),
            let imageUrl = URL(string: imageUrlString) {
             downloadImage(from: imageUrl)
         }
+        
     }
     
     func downloadImage(from url: URL) {
@@ -99,6 +115,9 @@ class PersonalProfileViewController: UIViewController, TextChanger {
         if segue.identifier == "EditProfileSegue",
            let nextVC = segue.destination as? EditProfileViewController {
                 nextVC.delegateText = self
+                // Pass the current name and tagline to the edit profile view controller
+                nextVC.currentName = nameLabel.text
+                nextVC.currentTagline = taglineLabel.text
         }
     }
 
@@ -110,6 +129,10 @@ class PersonalProfileViewController: UIViewController, TextChanger {
     // If the tagline field is changed
     func changeTagline(newTagline: String) {
         taglineLabel.text = newTagline
+    }
+    
+    func updateProfileImage(newImage: UIImage) {
+        profImgView.image = newImage
     }
     
     

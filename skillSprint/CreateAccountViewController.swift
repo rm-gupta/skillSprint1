@@ -13,7 +13,7 @@ class CreateAccountViewController: UIViewController {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var errorMessage: UILabel!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -24,6 +24,9 @@ class CreateAccountViewController: UIViewController {
             errorMessage.text = "Please enter email and password."
             return
         }
+        
+        // Set the shared username before creating the account
+        SharedData.shared.username = email
         
         // Create new user in Firebase
         Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in

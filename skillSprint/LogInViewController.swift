@@ -35,12 +35,20 @@ class LogInViewController: UIViewController {
             } else {
                 // Clear error message and proceed to the home screen on successful login
                 self.errorMessage.text = ""
-                self.performSegue(withIdentifier: "goToHomeScreen", sender: self)
+                self.goToHomeScreen()
             }
         }
     }
     
     @IBAction func createAccountButtonPressed(_ sender: Any) {
     }
+    
+    func goToHomeScreen() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeScreenViewController") as? HomeScreenViewController {
+                // Push the HomeScreenViewController onto the navigation stack
+                self.navigationController?.pushViewController(homeVC, animated: true)
+            }
+        }
 }
 

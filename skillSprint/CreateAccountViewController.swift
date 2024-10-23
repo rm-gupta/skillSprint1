@@ -46,9 +46,17 @@ class CreateAccountViewController: UIViewController {
                 self.errorMessage.text = "\(error.localizedDescription)"
             } else {
                 self.errorMessage.text = ""
-                self.performSegue(withIdentifier: "goToHomeScreenCreate", sender: self)
+                self.goToHomeScreen()
             }
         }
     }
+    
+    func goToHomeScreen() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeScreenViewController") as? HomeScreenViewController {
+                // Push the HomeScreenViewController onto the navigation stack
+                self.navigationController?.pushViewController(homeVC, animated: true)
+            }
+        }
 }
 

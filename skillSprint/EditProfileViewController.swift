@@ -14,10 +14,8 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var taglineField: UITextField!
     @IBOutlet weak var uploadPhoto: UIButton!
-    
     @IBOutlet weak var saveButton: UIButton!
-    
-    
+        
     var delegateText: UIViewController!
     var selectedImage: UIImage? = nil
     
@@ -45,10 +43,10 @@ class EditProfileViewController: UIViewController {
                 }
         self.dismiss(animated: true)
 
-                
+    
     }
-
-    // Function to change the user's profile photo
+    
+    // Function to change the user's profile photo    
     @IBAction func uploadUserPhoto(_ sender: Any) {
         let vc = UIImagePickerController()
         vc.sourceType = .photoLibrary

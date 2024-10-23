@@ -15,10 +15,11 @@ protocol TextChanger {
 class PersonalProfileViewController: UIViewController, TextChanger {
     
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var taglineLabel: UILabel!
     @IBOutlet weak var profImgView: UIImageView!
-    
     @IBOutlet weak var editProfButton: UIButton!
+
     
     let greenColor = UIColor(red: 125/255.0, green: 207/255.0, blue: 150/255.0, alpha: 1.0)
     

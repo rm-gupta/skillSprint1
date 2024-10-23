@@ -28,7 +28,7 @@
                                     <fragment content="SkillSprint">
                                         <attributes>
                                             <color key="NSColor" red="0.8666666666666667" green="0.45882352941176469" blue="0.078431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="48" name=".SFNS-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="48"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>

@@ -45,6 +45,10 @@ class HomeScreenViewController: UIViewController {
             self.skillDesc = data["description"] as? String ?? "No Description"
             self.skillInstr = data["instruction"] as? String ?? "No Instructions"
 
+//            print("skillTitle: \(self.skillTitle ?? "nil")")
+//            print("skillTitle: \(self.skillDesc ?? "nil")")
+//            print("skillTitle: \(self.skillInstr ?? "nil")")
+
             // Update the UI
             self.titleLabel.text = self.skillTitle
             self.skillDesc = "\t" + self.skillDesc!

@@ -25,8 +25,6 @@ Our project closely matches the general functions mentioned in the proposal.
 For the Alpha release, we had the launch screen, the registration/login Page, the structures for core skill delivery, which are
 the home Screen and skill details screen, the user profiles screens, the basic video upload screen, and a scoring system for streaks.
 
-ADDITIONALLY, Here are our dummy credentials to test the app Right now for functionality we cannot accept passwords created with less than 6 characters due to firebase restrictions
-Username: testuser@gmail.com
-Password: Testuser1234
+ADDITIONALLY, when creating the user account, the password should be at least 6 characters long, and tne username should follow the email format.
 
 

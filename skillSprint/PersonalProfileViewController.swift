@@ -35,12 +35,20 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
         super.viewDidLoad()
 
         // Set the username label from SharedData
-        usernameLabel.text = SharedData.shared.username
+        usernameLabel.text = SharedData.shared.usernameWithAtSymbol
         
         editProfButton.backgroundColor = greenColor
         
+        // Retrieve saved name and tagline from UserDefaults
+        if let savedName = UserDefaults.standard.string(forKey: "savedName") {
+            nameLabel.text = savedName
+        }
+        
+        if let savedTagline = UserDefaults.standard.string(forKey: "savedTagline") {
+            taglineLabel.text = savedTagline
+        }
+        
         //add gear icon button
-        // Create a UIButton
         let settingsButton = UIButton(type: .system)
         
         // Set the custom image from your assets
@@ -49,15 +57,12 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
         settingsButton.tintColor = .black
         
         // Set button frame or constraints
-        settingsButton.frame = CGRect(x: 35, y: 100, width: 30, height: 30)  // Example frame
+        settingsButton.frame = CGRect(x: 35, y: 100, width: 30, height: 30)
         
         // Add button to the view
         view.addSubview(settingsButton)
         
-        
-        
         // Add camera shutter icon
-        // Create a UIButton
         let shutterButton = UIButton(type: .system)
         
         // Set the custom image from your assets
@@ -66,16 +71,15 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
         shutterButton.tintColor = .black
         
         // Set button frame or constraints
-        shutterButton.frame = CGRect(x: 340, y: 100, width: 30, height: 30)  // Example frame
-        
+        shutterButton.frame = CGRect(x: 340, y: 100, width: 30, height: 30)
         // Add button to the view
         view.addSubview(shutterButton)
         
         // Retrieve the stored URL
-                if let imageUrlString = UserDefaults.standard.string(forKey: "profileImageURL"),
-                   let imageUrl = URL(string: imageUrlString) {
-                    downloadImage(from: imageUrl)
-                }
+        if let imageUrlString = UserDefaults.standard.string(forKey: "profileImageURL"),
+            let imageUrl = URL(string: imageUrlString) {
+                downloadImage(from: imageUrl)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -124,11 +128,15 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
     // If the name field is changed
     func changeName(newName: String) {
         nameLabel.text = newName
+        // Save the name in UserDefaults
+        UserDefaults.standard.set(newName, forKey: "savedName")
     }
     
     // If the tagline field is changed
     func changeTagline(newTagline: String) {
         taglineLabel.text = newTagline
+        // Save the tagline in UserDefaults
+        UserDefaults.standard.set(newTagline, forKey: "savedTagline")
     }
     
     func updateProfileImage(newImage: UIImage) {

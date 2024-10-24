@@ -27,4 +27,6 @@ the home Screen and skill details screen, the user profiles screens, the basic v
 
 ADDITIONALLY, when creating the user account, the password should be at least 6 characters long, and tne username should follow the email format.
 
+ALSO, the upload/record function needs to be tested on an actual phone.
+
 

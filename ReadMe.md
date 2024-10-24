@@ -12,7 +12,8 @@
 - Developed the Skill Details Screen that displays details of skill and allows users to upload video
 
 ### Ritu Gupta (25%)
-- Created the Profile Screen
+- Created the User Profile Screen
+- Created the Edit Profile Screen 
 
 ### Jeanie Ho (25%)
 - Developed the Video Upload Screen with options to record and upload videos
@@ -23,5 +24,9 @@
 Our project closely matches the general functions mentioned in the proposal. 
 For the Alpha release, we had the launch screen, the registration/login Page, the structures for core skill delivery, which are
 the home Screen and skill details screen, the user profiles screens, the basic video upload screen, and a scoring system for streaks.
+
+ADDITIONALLY, we were having issues with creating new user accounts. Here are our dummy credentials to test the app: 
+Username: testuser@gmail.com
+Password: Testuser1234
 
 

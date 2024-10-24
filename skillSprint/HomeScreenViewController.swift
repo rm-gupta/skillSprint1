@@ -52,6 +52,21 @@ class HomeScreenViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender:Any?){
+        // which segue triggered this
+        if segue.identifier == "homeToDetails", // the string
+           let detailVC = segue.destination as? SkillDetailViewController{ // destination: where segue is going to take us
+            detailVC.delegate = self
+            detailVC.skillTitle = self.skillTitle
+            detailVC.skillDesc = self.skillDesc
+            detailVC.skillInstr = self.skillInstr
+            print("skillTitle: \(skillTitle ?? "nil")")
+            print("skillDesc: \(skillDesc ?? "nil")")
+            print("skillInstr: \(skillInstr ?? "nil")")
+            
+        }
+    }
+    
     // Function to load and display the current user's streak and score
     func loadUserStreakAndScore() {
         guard let currentUser = Auth.auth().currentUser else {

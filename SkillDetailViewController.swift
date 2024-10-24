@@ -1,4 +1,3 @@
-//
 //  SkillDetailViewController.swift
 //  skillSprint
 //
@@ -8,22 +7,31 @@
 import UIKit
 
 class SkillDetailViewController: UIViewController {
+    
+    var delegate:UIViewController!
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var instrLabel: UILabel!
+    @IBOutlet weak var descLabel: UILabel!
+    
+    var skillTitle: String?
+    var skillDesc: String?
+    var skillInstr: String?
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        titleLabel.text = skillTitle
+        descLabel.text = skillDesc
+        let formattedInstructions = skillInstr!.replacingOccurrences(of: "(\\d+\\.)", with: "\n$1", options: .regularExpression)
 
-        // Do any additional setup after loading the view.
+        // Print the formatted instructions to debug if it's correct
+        print(formattedInstructions)
+
+        // Set the formatted text in the UITextView
+        instrLabel.text = formattedInstructions
+        
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
+

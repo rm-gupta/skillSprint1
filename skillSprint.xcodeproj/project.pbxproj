@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		51CF2FF52CC9DD70006B675D /* SkillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CF2FF42CC9DD70006B675D /* SkillDetailViewController.swift */; };
 		7349EE102CC7492700C7342B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 7349EE0F2CC7492700C7342B /* FirebaseAuth */; };
 		7349EE122CC7492700C7342B /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 7349EE112CC7492700C7342B /* FirebaseAuthCombine-Community */; };
 		7349EE142CC7492700C7342B /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 7349EE132CC7492700C7342B /* FirebaseCore */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		45EA26F52CC0381D0028272F /* skillSprint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = skillSprint.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		51CF2FF42CC9DD70006B675D /* SkillDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -64,6 +66,7 @@
 		45EA26EC2CC0381D0028272F = {
 			isa = PBXGroup;
 			children = (
+				51CF2FF42CC9DD70006B675D /* SkillDetailViewController.swift */,
 				45EA26F72CC0381D0028272F /* skillSprint */,
 				45EA26F62CC0381D0028272F /* Products */,
 			);
@@ -162,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51CF2FF52CC9DD70006B675D /* SkillDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

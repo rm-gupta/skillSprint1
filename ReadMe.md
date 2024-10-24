@@ -7,7 +7,7 @@
 
 ### Regina Zhou (25%)
 - Designed the Launch Screen
-- Created the Home Screen with a Tab Bar Controller that navigates to the Profile Screen, Upload Video Screen, and Home Screen
+- Created the Home Screen that navigates to the Profile Screen, Upload Video Screen, and Home Screen
 - Developed the Skill Details Screen that displays detailed content of the daily skill
 
 ### Ritu Gupta (25%)

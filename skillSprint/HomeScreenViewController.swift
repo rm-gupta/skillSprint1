@@ -11,12 +11,45 @@ class HomeScreenViewController: UIViewController {
 
     @IBOutlet weak var streakLabel: UILabel!
     
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descLabel: UILabel!
+    
     private let db = Firestore.firestore()
+    
+    var skillTitle: String?
+    var skillDesc: String?
+    var skillInstr: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Load user streak and score when the view loads
         loadUserStreakAndScore()
+        fetchFirstSkill()
+    }
+    
+    func fetchFirstSkill() {
+        db.collection("skills").getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+                return
+            }
+
+            // Ensure there's at least one document
+            guard let documents = snapshot?.documents, let firstDocument = documents.first else {
+                print("No skills found")
+                return
+            }
+
+            // Extract data from the first document
+            let data = firstDocument.data()
+            self.skillTitle = data["title"] as? String ?? "No Title"
+            self.skillDesc = data["description"] as? String ?? "No Description"
+            self.skillInstr = data["instruction"] as? String ?? "No Instructions"
+
+            // Update the UI
+            self.titleLabel.text = self.skillTitle
+            self.skillDesc = "\t" + self.skillDesc!
+            self.descLabel.text = self.skillDesc
+        }
     }
     
     // Function to load and display the current user's streak and score

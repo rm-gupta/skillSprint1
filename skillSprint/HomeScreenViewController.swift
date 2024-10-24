@@ -5,7 +5,7 @@
 
 import UIKit
 import FirebaseAuth
-import FirebaseFirestore
+import FirebaseFirestore // imported to store data
 
 class HomeScreenViewController: UIViewController {
 
@@ -26,6 +26,8 @@ class HomeScreenViewController: UIViewController {
         fetchFirstSkill()
     }
     
+    // This function fetches the first skill from the database and stores the
+    // attributes title, description, and instruction of the skill.
     func fetchFirstSkill() {
         db.collection("skills").getDocuments { (snapshot, error) in
             if let error = error {
@@ -39,15 +41,11 @@ class HomeScreenViewController: UIViewController {
                 return
             }
 
-            // Extract data from the first document
+            // Extract data from the first skill
             let data = firstDocument.data()
             self.skillTitle = data["title"] as? String ?? "No Title"
             self.skillDesc = data["description"] as? String ?? "No Description"
             self.skillInstr = data["instruction"] as? String ?? "No Instructions"
-
-//            print("skillTitle: \(self.skillTitle ?? "nil")")
-//            print("skillTitle: \(self.skillDesc ?? "nil")")
-//            print("skillTitle: \(self.skillInstr ?? "nil")")
 
             // Update the UI
             self.titleLabel.text = self.skillTitle
@@ -57,8 +55,9 @@ class HomeScreenViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender:Any?){
-        // which segue triggered this
-        if segue.identifier == "homeToDetails", // the string
+        // when segue triggered, pass revelent information to the
+        // skill details screen.
+        if segue.identifier == "homeToDetails",
            let detailVC = segue.destination as? SkillDetailViewController{ // destination: where segue is going to take us
             detailVC.delegate = self
             detailVC.skillTitle = self.skillTitle

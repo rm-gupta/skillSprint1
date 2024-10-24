@@ -7,8 +7,9 @@
 
 ### Regina Zhou (25%)
 - Designed the Launch Screen
-- Created the Home Screen that navigates to the Profile Screen, Upload Video Screen, and Home Screen
-- Developed the Skill Details Screen that displays detailed content of the daily skill
+- Generated 5 skills and added to Firestore database
+- Created the Home Screen that navigates to the Profile Screen, Upload Video Screen, and Skill Details Screen
+- Developed the Skill Details Screen that displays details of skill and allows users to upload video
 
 ### Ritu Gupta (25%)
 - Created the Profile Screen

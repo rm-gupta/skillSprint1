@@ -212,11 +212,21 @@
                                     <segue destination="TFi-4N-ojX" kind="show" id="8Hb-El-MMO"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wbH-dh-KmA">
+                                <rect key="frame" x="103.66666666666669" y="749" width="186" height="35"/>
+                                <color key="tintColor" red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="Upload/Record Video"/>
+                                <connections>
+                                    <segue destination="sqF-ZD-4b7" kind="show" id="ESa-jI-krg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xkX-wW-zj1"/>
                         <color key="backgroundColor" red="1" green="0.99607843139999996" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="RqX-tX-JLz" firstAttribute="leading" secondItem="xkX-wW-zj1" secondAttribute="leading" constant="16" id="30O-gi-YgY"/>
+                            <constraint firstItem="wbH-dh-KmA" firstAttribute="centerX" secondItem="0bj-M3-UJw" secondAttribute="centerX" id="5nq-QB-iZl"/>
                             <constraint firstItem="rSo-vv-IWH" firstAttribute="leading" secondItem="xkX-wW-zj1" secondAttribute="leading" constant="16" id="AFD-91-iQr"/>
                             <constraint firstItem="xkX-wW-zj1" firstAttribute="trailing" secondItem="RqX-tX-JLz" secondAttribute="trailing" constant="16" id="D4U-Uf-o48"/>
                             <constraint firstItem="MMt-pL-cZ0" firstAttribute="top" secondItem="1wC-pf-w1m" secondAttribute="bottom" constant="8" symbolic="YES" id="Fw6-ho-rFB"/>
@@ -229,6 +239,7 @@
                             <constraint firstItem="xkX-wW-zj1" firstAttribute="trailing" secondItem="MMt-pL-cZ0" secondAttribute="trailing" constant="16" id="V3Z-0U-iSD"/>
                             <constraint firstItem="rSo-vv-IWH" firstAttribute="top" secondItem="xkX-wW-zj1" secondAttribute="top" constant="67" id="Wpa-4w-CVp"/>
                             <constraint firstItem="mpW-0e-WT4" firstAttribute="top" secondItem="ACY-Se-ULV" secondAttribute="bottom" constant="-50" id="aC3-Vr-mw7"/>
+                            <constraint firstItem="wbH-dh-KmA" firstAttribute="bottom" secondItem="xkX-wW-zj1" secondAttribute="bottom" constant="15" id="gAS-YN-8b5"/>
                             <constraint firstItem="ACY-Se-ULV" firstAttribute="top" secondItem="1wC-pf-w1m" secondAttribute="bottom" constant="-35" id="hvT-84-fFj"/>
                             <constraint firstItem="RqX-tX-JLz" firstAttribute="top" secondItem="MMt-pL-cZ0" secondAttribute="bottom" constant="14" id="ipG-IW-TOE"/>
                             <constraint firstItem="mpW-0e-WT4" firstAttribute="centerX" secondItem="0bj-M3-UJw" secondAttribute="centerX" id="mcw-aw-L46"/>
@@ -683,7 +694,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="tq3-OL-Rr4"/>
+        <segue reference="ESa-jI-krg"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.27877497670000001" green="0.46033453940000002" blue="0.32939332719999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>

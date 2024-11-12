@@ -13,6 +13,7 @@ class HomeScreenViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     
     private let db = Firestore.firestore()
     
@@ -22,13 +23,31 @@ class HomeScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        displayCurrentDate()
         loadUserStreakAndScore()
-        fetchFirstSkill()
+        fetchOneSkill()
     }
     
-    // This function fetches the first skill from the database and stores the
+    func displayCurrentDate() {
+        // Get the current date
+        let currentDate = Date()
+
+        // Set up the date formatter
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium // Use .short, .medium, .long, or .full as needed
+        dateFormatter.timeStyle = .none // Adjust if you also want to display time
+        dateFormatter.locale = Locale.current // Optional: sets the locale to current region
+
+        // Format the date as a string
+        let dateString = dateFormatter.string(from: currentDate)
+
+        // Display the date string in the label
+        dateLabel.text = dateString
+    }
+    
+    // This function fetches one skill from the database according to the current date and stores the
     // attributes title, description, and instruction of the skill.
-    func fetchFirstSkill() {
+    func fetchOneSkill() {
         db.collection("skills").getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error getting documents: \(error)")
@@ -41,16 +60,33 @@ class HomeScreenViewController: UIViewController {
                 return
             }
 
-            // Extract data from the first skill
-            let data = firstDocument.data()
+//            // Extract data from the first skill
+//            let data = firstDocument.data()
+//            self.skillTitle = data["title"] as? String ?? "No Title"
+//            self.skillDesc = data["description"] as? String ?? "No Description"
+//            self.skillInstr = data["instruction"] as? String ?? "No Instructions"
+//
+//            // Update the UI
+//            self.titleLabel.text = self.skillTitle
+//            self.skillDesc = "\t" + self.skillDesc!
+//            self.descLabel.text = self.skillDesc
+            // Calculate a daily index based on the day of the year
+            let totalSkills = documents.count
+            let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: Date()) ?? 1
+            let skillIndex = dayOfYear % totalSkills
+
+            // Get the skill for today using the calculated index
+            let document = documents[skillIndex]
+            let data = document.data()
             self.skillTitle = data["title"] as? String ?? "No Title"
             self.skillDesc = data["description"] as? String ?? "No Description"
             self.skillInstr = data["instruction"] as? String ?? "No Instructions"
 
-            // Update the UI
-            self.titleLabel.text = self.skillTitle
-            self.skillDesc = "\t" + self.skillDesc!
-            self.descLabel.text = self.skillDesc
+            // Update the UI on the main thread
+            DispatchQueue.main.async {
+                self.titleLabel.text = self.skillTitle
+                self.descLabel.text = "\t" + (self.skillDesc!)
+            }
         }
     }
     

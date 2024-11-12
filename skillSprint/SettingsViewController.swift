@@ -1,29 +1,24 @@
-//
-//  SettingsViewController.swift
-//  skillSprint
-//
-//  Created by Divya Nitin on 11/11/24.
-//
-
 import UIKit
 
 class SettingsViewController: UIViewController {
 
+    @IBOutlet weak var darkModeSwitch: UISwitch!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // Set switch based on the current theme
+        darkModeSwitch.isOn = ColorThemeManager.shared.currentTheme == .dark
+        applyTheme()
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func darkModeSwitchChanged(_ sender: UISwitch) {
+        // Update the ColorThemeManager's theme based on the switch state
+        ColorThemeManager.shared.currentTheme = sender.isOn ? .dark : .light
+        applyTheme()
     }
-    */
 
+    private func applyTheme() {
+        view.backgroundColor = ColorThemeManager.shared.backgroundColor
+    }
 }

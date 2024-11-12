@@ -18,6 +18,7 @@ class SkillDetailViewController: UIViewController {
     var skillTitle: String?
     var skillDesc: String?
     var skillInstr: String?
+    var skillDiff: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()

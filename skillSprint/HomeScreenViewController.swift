@@ -13,6 +13,7 @@ class HomeScreenViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var diffLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
     private let db = Firestore.firestore()
@@ -20,11 +21,23 @@ class HomeScreenViewController: UIViewController {
     var skillTitle: String?
     var skillDesc: String?
     var skillInstr: String?
+    var skillDiff: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         displayCurrentDate()
         loadUserStreakAndScore()
+        fetchOneSkill()
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateSkillForSelectedDifficulty),
+            name: Notification.Name("DifficultyPreferenceChanged"),
+            object: nil)
+    }
+    
+    // Refetch a skill that matches the updated difficulty
+    @objc func updateSkillForSelectedDifficulty() {
         fetchOneSkill()
     }
     
@@ -59,33 +72,36 @@ class HomeScreenViewController: UIViewController {
                 print("No skills found")
                 return
             }
-
-//            // Extract data from the first skill
-//            let data = firstDocument.data()
-//            self.skillTitle = data["title"] as? String ?? "No Title"
-//            self.skillDesc = data["description"] as? String ?? "No Description"
-//            self.skillInstr = data["instruction"] as? String ?? "No Instructions"
-//
-//            // Update the UI
-//            self.titleLabel.text = self.skillTitle
-//            self.skillDesc = "\t" + self.skillDesc!
-//            self.descLabel.text = self.skillDesc
+            
+            let easySelected = UserDefaults.standard.bool(forKey: "easyPreference")
+            let mediumSelected = UserDefaults.standard.bool(forKey: "mediumPreference")
+            let hardSelected = UserDefaults.standard.bool(forKey: "hardPreference")
+            
+            let filteredDocuments = documents.filter { document in
+                let difficulty = document.data()["difficulty"] as? String ?? ""
+                return (difficulty == "easy" && easySelected) ||
+                        (difficulty == "med" && mediumSelected) ||
+                        (difficulty == "hard" && hardSelected)
+            }
+            // print("easy: \(easySelected), med: \(mediumSelected), hard: \(hardSelected)")
             // Calculate a daily index based on the day of the year
-            let totalSkills = documents.count
+            let totalSkills = filteredDocuments.count
             let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: Date()) ?? 1
             let skillIndex = dayOfYear % totalSkills
 
             // Get the skill for today using the calculated index
-            let document = documents[skillIndex]
+            let document = filteredDocuments[skillIndex]
             let data = document.data()
             self.skillTitle = data["title"] as? String ?? "No Title"
             self.skillDesc = data["description"] as? String ?? "No Description"
             self.skillInstr = data["instruction"] as? String ?? "No Instructions"
+            self.skillDiff = data["difficulty"] as? String ?? "No Difficulty"
 
             // Update the UI on the main thread
             DispatchQueue.main.async {
                 self.titleLabel.text = self.skillTitle
-                self.descLabel.text = "\t" + (self.skillDesc!)
+                self.descLabel.text = self.skillDesc
+                self.diffLabel.text = self.skillDiff
             }
         }
     }
@@ -94,11 +110,12 @@ class HomeScreenViewController: UIViewController {
         // when segue triggered, pass revelent information to the
         // skill details screen.
         if segue.identifier == "homeToDetails",
-           let detailVC = segue.destination as? SkillDetailViewController{ // destination: where segue is going to take us
+           let detailVC = segue.destination as? SkillDetailViewController{
             detailVC.delegate = self
             detailVC.skillTitle = self.skillTitle
             detailVC.skillDesc = self.skillDesc
             detailVC.skillInstr = self.skillInstr
+            detailVC.skillDiff = self.skillDiff
             print("skillTitle: \(skillTitle ?? "nil")")
             print("skillDesc: \(skillDesc ?? "nil")")
             print("skillInstr: \(skillInstr ?? "nil")")

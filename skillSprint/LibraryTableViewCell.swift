@@ -8,16 +8,13 @@
 import UIKit
 
 class LibraryTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var difficultyLabel: UILabel!
+    
+    // This is not linked!!!
+    @IBAction func playPressed(_ sender: UIButton) {
+        
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }
+

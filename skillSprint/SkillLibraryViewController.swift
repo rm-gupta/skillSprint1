@@ -25,6 +25,7 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyTheme()
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
@@ -34,6 +35,11 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
         prepareDropdown()
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            applyTheme() // Re-apply theme every time the view appears
+        }
     
     func prepareDropdown() {
         let filterOptions = [
@@ -214,6 +220,10 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
             detailVC.skillInstr = curSkill.instr
             detailVC.skillDiff = curSkill.difficulty
         }
+    }
+    
+    private func applyTheme() {
+        view.backgroundColor = ColorThemeManager.shared.backgroundColor
     }
     
 

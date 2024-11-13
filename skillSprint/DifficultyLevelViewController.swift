@@ -15,9 +15,14 @@ class DifficultyLevelViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyTheme()
         setDefaultDifficultyPreferences()
         loadUserDifficultyPreferences()
     }
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            applyTheme() // Re-apply theme every time the view appears
+        }
     
     func setDefaultDifficultyPreferences() {
         let defaults = UserDefaults.standard
@@ -79,6 +84,10 @@ class DifficultyLevelViewController: UIViewController {
         UserDefaults.standard.set(anySwitch.isOn, forKey: "anyPreference")
         //print("easy: \(easySwitch.isOn), med: \(mediumSwitch.isOn), hard: \(hardSwitch.isOn), any: \(anySwitch.isOn)")
         NotificationCenter.default.post(name: Notification.Name("DifficultyPreferenceChanged"), object: nil)
+    }
+    
+    private func applyTheme() {
+        view.backgroundColor = ColorThemeManager.shared.backgroundColor
     }
         
 

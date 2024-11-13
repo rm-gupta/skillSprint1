@@ -16,11 +16,17 @@ class VideoPlayerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyTheme()
 
         if let videoURL = videoURL {
             playVideo(from: videoURL)
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            applyTheme() // Re-apply theme every time the view appears
+        }
 
     // Function to play the video using AVPlayer
     func playVideo(from url: URL) {
@@ -37,6 +43,10 @@ class VideoPlayerViewController: UIViewController {
         playerViewController.view.frame = CGRect(x: 10, y: 100, width: self.view.frame.width - 20, height: 300)
 
         player.play()
+    }
+    
+    private func applyTheme() {
+        view.backgroundColor = ColorThemeManager.shared.backgroundColor
     }
         
 }

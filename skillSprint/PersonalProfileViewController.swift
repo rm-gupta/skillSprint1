@@ -33,6 +33,7 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyTheme()
 
         // Set the username label from SharedData
         usernameLabel.text = SharedData.shared.usernameWithAtSymbol
@@ -84,7 +85,7 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        applyTheme()
         // Update the currentName and currentTagline with existing values
         currentName = nameLabel.text
         currentTagline = taglineLabel.text
@@ -95,6 +96,10 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
             downloadImage(from: imageUrl)
         }
         
+    }
+    
+    private func applyTheme() {
+        view.backgroundColor = ColorThemeManager.shared.backgroundColor
     }
     
     func downloadImage(from url: URL) {

@@ -22,6 +22,7 @@ class SkillDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyTheme()
         titleLabel.text = skillTitle
         descLabel.text = skillDesc
         
@@ -31,6 +32,15 @@ class SkillDetailViewController: UIViewController {
         // Set the formatted text in the UITextView
         instrLabel.text = formattedInstructions
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            applyTheme() // Re-apply theme every time the view appears
+        }
+    
+    private func applyTheme() {
+        view.backgroundColor = ColorThemeManager.shared.backgroundColor
     }
 
 }

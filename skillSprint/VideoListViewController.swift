@@ -16,12 +16,18 @@ class VideoListViewController: UIViewController, UITableViewDelegate, UITableVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyTheme()
         
         tableView.delegate = self
         tableView.dataSource = self
         
         fetchUploadedVideos()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            applyTheme() // Re-apply theme every time the view appears
+        }
 
     // Fetch the list of uploaded video URLs from Firebase Storage
     func fetchUploadedVideos() {
@@ -77,5 +83,9 @@ class VideoListViewController: UIViewController, UITableViewDelegate, UITableVie
         present(playerViewController, animated: true) {
             player.play()
         }
+    }
+    
+    private func applyTheme() {
+        view.backgroundColor = ColorThemeManager.shared.backgroundColor
     }
 }

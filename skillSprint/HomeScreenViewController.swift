@@ -27,6 +27,7 @@ class HomeScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyTheme()
         displayCurrentDate()
         loadUserStreakAndScore()
         fetchOneSkill()
@@ -38,8 +39,14 @@ class HomeScreenViewController: UIViewController {
             object: nil)
     }
     
+    
+    private func applyTheme() {
+        view.backgroundColor = ColorThemeManager.shared.backgroundColor
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        applyTheme()
         // Set up the timer with a 60-second interval
         dateChangeTimer = Timer.scheduledTimer(
             withTimeInterval: 60,

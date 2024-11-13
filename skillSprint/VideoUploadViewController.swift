@@ -16,10 +16,16 @@ class VideoUploadViewController: UIViewController, UIImagePickerControllerDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyTheme()
         videoPicker.delegate = self
         videoPicker.mediaTypes = [UTType.movie.identifier]
         videoPicker.videoQuality = .typeHigh
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            applyTheme() // Re-apply theme every time the view appears
+        }
 
     // MARK: - Record Video Action
     @IBAction func recordVideo(_ sender: Any) {
@@ -92,6 +98,10 @@ class VideoUploadViewController: UIViewController, UIImagePickerControllerDelega
         } catch {
             print("Failed to get video data: \(error)")
         }
+    }
+    
+    private func applyTheme() {
+        view.backgroundColor = ColorThemeManager.shared.backgroundColor
     }
 
 }

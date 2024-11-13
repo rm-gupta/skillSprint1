@@ -39,6 +39,7 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyTheme()
 
         // Initialize the Firebase database reference
         ref = Database.database().reference()
@@ -68,6 +69,13 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
         shutterButton.frame = CGRect(x: 340, y: 100, width: 30, height: 30)
         view.addSubview(shutterButton)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            applyTheme() // Re-apply theme every time the view appears
+        }
+    
+    
 
     func loadCurrentUserProfile() {
         guard let userID = Auth.auth().currentUser?.uid else { return }
@@ -139,6 +147,10 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
     func updateProfileImage(newImage: UIImage) {
         profImgView.image = newImage
         // Code for uploading new image to Firebase Storage and updating profile image URL in the database would go here.
+    }
+    
+    private func applyTheme() {
+        view.backgroundColor = ColorThemeManager.shared.backgroundColor
     }
 }
 

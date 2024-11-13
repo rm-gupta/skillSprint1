@@ -3,14 +3,18 @@ import UIKit
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var darkModeSwitch: UISwitch!
+    @IBOutlet weak var visibilitySegmentedControl: UISegmentedControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Set the switch based on the current theme saved in ColorThemeManager
-        // If the theme is dark, the switch should be on; if light, it should be off.
         darkModeSwitch.isOn = ColorThemeManager.shared.currentTheme == .dark
         applyTheme()
+
+        // Set the segmented control based on saved visibility setting
+        let savedVisibility = BadgeManager.shared.visibility
+        visibilitySegmentedControl.selectedSegmentIndex = savedVisibility.rawValue
     }
 
     @IBAction func darkModeSwitchChanged(_ sender: UISwitch) {
@@ -19,10 +23,15 @@ class SettingsViewController: UIViewController {
         applyTheme()
     }
 
+    @IBAction func visibilitySegmentChanged(_ sender: UISegmentedControl) {
+        // Update BadgeManager's visibility based on the selected segment
+        let selectedVisibility = BadgeVisibility(rawValue: sender.selectedSegmentIndex) ?? .justMe
+        BadgeManager.shared.visibility = selectedVisibility
+    }
+
     private func applyTheme() {
-        // Apply the current theme's background color to the settings view
         view.backgroundColor = ColorThemeManager.shared.backgroundColor
-        // Update other UI elements as needed, e.g., labels, buttons, etc.
     }
 }
+
 

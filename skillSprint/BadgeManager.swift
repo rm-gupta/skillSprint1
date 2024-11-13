@@ -5,12 +5,20 @@
 //  Created by Jeanie Ho on 11/04/24.
 //
 
+import Foundation
+
 // Badge class
 struct Badge {
     let name: String
     let description: String
     let iconName: String
     var isAchieved: Bool
+}
+
+enum BadgeVisibility: Int {
+    case justMe = 0
+    case friends = 1
+    case everyone = 2
 }
 
 class BadgeManager {
@@ -25,10 +33,18 @@ class BadgeManager {
         Badge(name: "You're Poppin", description: "Upload 5 videos", iconName: "badge_6", isAchieved: false)
     ]
     
-    // Badge progress tracking variables
-    private var uploadedVideos: Int = 0
+    // Store visibility preference
+    private let visibilityKey = "badgeVisibility"
+    var visibility: BadgeVisibility {
+        get {
+            let savedValue = UserDefaults.standard.integer(forKey: visibilityKey)
+            return BadgeVisibility(rawValue: savedValue) ?? .justMe
+        }
+        set {
+            UserDefaults.standard.set(newValue.rawValue, forKey: visibilityKey)
+        }
+    }
     
-    // Function to add a test badge
     func addTestBadge() {
         let testBadge = Badge(name: "Test Badge", description: "This is a test badge", iconName: "badge_1", isAchieved: true)
         let testBadge2 = Badge(name: "Test 2", description: "This is a test badge", iconName: "badge_1", isAchieved: true)
@@ -37,8 +53,10 @@ class BadgeManager {
         badges.append(testBadge2)
         badges.append(testBadge3)
     }
+
+    // Badge progress tracking variables
+    private var uploadedVideos: Int = 0
     
-    // Badge check methods
     func checkBadges() {
         uploadedVideos += 1
         checkFirstSteps()
@@ -49,7 +67,6 @@ class BadgeManager {
         checkYourePoppin()
     }
     
-    // Badge check implementations
     private func checkFirstSteps() {
         if !badges[0].isAchieved {
             badges[0].isAchieved = uploadedVideos > 0
@@ -86,7 +103,18 @@ class BadgeManager {
         }
     }
     
-    // Retrieve badges for display purposes
+    // Retrieve badges based on visibility setting
+    func getVisibleBadges(for currentUserID: String, friendIDs: Set<String>) -> [Badge] {
+        switch visibility {
+        case .justMe:
+            return achievedBadges()
+        case .friends:
+            return friendIDs.contains(currentUserID) ? achievedBadges() : []
+        case .everyone:
+            return achievedBadges()
+        }
+    }
+    
     func achievedBadges() -> [Badge] {
         return badges.filter { $0.isAchieved }
     }

@@ -16,6 +16,7 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var filterBttn: UIButton!
     @IBOutlet weak var sortBttn: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var sortOption: String!
     var filterOption: String!

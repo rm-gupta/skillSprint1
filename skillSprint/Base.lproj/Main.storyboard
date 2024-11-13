@@ -997,12 +997,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search key words here" translatesAutoresizingMaskIntoConstraints="NO" id="JHP-U1-dTT">
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" text="" placeholder="Search key words here" translatesAutoresizingMaskIntoConstraints="NO" id="JHP-U1-dTT">
                                 <rect key="frame" x="23" y="105.33333333333331" width="347" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="3L8-qW-mjq" id="I6L-lP-olB"/>
-                                </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="kvm-CT-U7K">
                                 <rect key="frame" x="0.0" y="198.33333333333331" width="393" height="653.66666666666674"/>
@@ -1151,6 +1148,7 @@
                     <navigationItem key="navigationItem" id="Evi-JO-pad"/>
                     <connections>
                         <outlet property="filterBttn" destination="exL-xw-LBx" id="0nN-wy-fqP"/>
+                        <outlet property="searchBar" destination="JHP-U1-dTT" id="oRM-Rp-2eD"/>
                         <outlet property="sortBttn" destination="3t4-r7-qZx" id="hjD-GS-ueM"/>
                         <outlet property="tableView" destination="kvm-CT-U7K" id="vgv-Yu-gds"/>
                     </connections>
@@ -1163,7 +1161,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="4d3-C7-qRX"/>
         <segue reference="jeQ-J5-WF1"/>
-        <segue reference="8Hb-El-MMO"/>
+        <segue reference="Wko-GH-aIg"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.27877497670000001" green="0.46033453940000002" blue="0.32939332719999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>

@@ -105,6 +105,15 @@ class HomeScreenViewController: UIViewController {
                 return
             }
             
+            let defaults = UserDefaults.standard
+            
+            if defaults.value(forKey: "easyPreference") == nil {
+                defaults.set(true, forKey: "easyPreference")
+                defaults.set(true, forKey: "mediumPreference")
+                defaults.set(true, forKey: "hardPreference")
+                defaults.set(true, forKey: "anyPreference")
+            }
+                    
             let easySelected = UserDefaults.standard.bool(forKey: "easyPreference")
             let mediumSelected = UserDefaults.standard.bool(forKey: "mediumPreference")
             let hardSelected = UserDefaults.standard.bool(forKey: "hardPreference")

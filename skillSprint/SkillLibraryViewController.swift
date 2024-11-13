@@ -8,9 +8,11 @@
 import UIKit
 import FirebaseFirestore // imported to store data
 
-class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+    
     var skillsList = [Skills]()
     var filteredList = [Skills]()
+    var searchedList = [Skills]()
     let db = Firestore.firestore()
 
     @IBOutlet weak var tableView: UITableView!
@@ -26,6 +28,7 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
         applyTheme()
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 128
         fetchSkills()
@@ -42,15 +45,19 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
         let filterOptions = [
             UIAction(title: "Easy") { _ in
                 self.filterOption = "easy"
+                self.filterBttn.setTitle("Easy", for: .normal)
                 self.updateChoices()},
             UIAction(title: "Medium") { _ in
                 self.filterOption = "med"
+                self.filterBttn.setTitle("Medium", for: .normal)
                 self.updateChoices()},
             UIAction(title: "Hard") { _ in
+                self.filterBttn.setTitle("Hard", for: .normal)
                 self.filterOption = "hard"
                 self.updateChoices()},
             UIAction(title: "All") { _ in
                 self.filterOption = nil
+                self.filterBttn.setTitle("Filter", for: .normal)
                 self.updateChoices()},
         ]
         
@@ -75,11 +82,46 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
         sortBttn.showsMenuAsPrimaryAction = true
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterOption = nil
+        sortOption = nil
+        filterBttn.setTitle("Filter", for: .normal)
+        
+        guard !searchText.isEmpty else {
+            // If search text is empty, show all items
+            searchedList.removeAll() // Clear search results
+            filteredList = skillsList
+            tableView.reloadData()
+            return
+        }
+        
+        searchedList = skillsList.filter { skill in
+            let titleContains = skill.title.lowercased().contains(searchText.lowercased())
+            let descContains = skill.desc.lowercased().contains(searchText.lowercased())
+            let instrContains = skill.instr.lowercased().contains(searchText.lowercased())
+            return titleContains || descContains || instrContains
+        }
+        if searchedList.isEmpty {
+            filteredList = []
+        } else {
+            // Update filteredList with the search results, then apply filters and sort
+            filteredList = searchedList
+            updateChoices()
+        }
+//        updateChoices()
+        tableView.reloadData()
+    }
+    
     func updateChoices() {
-        if let filter = filterOption {
-            filteredList = skillsList.filter({ $0.difficulty == filter })
+        // when there is still text in the search bar, search from the keyword list
+        if !searchedList.isEmpty {
+            filteredList = searchedList
         } else {
             filteredList = skillsList
+        }
+        
+        if let filter = filterOption {
+            filteredList = filteredList.filter({ $0.difficulty == filter })
         }
         
         if let sort = sortOption {
@@ -159,7 +201,6 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
     // as soon as user select one of the rows
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true) // only gray when click it
-        let row = indexPath.row
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender:Any?) {
@@ -178,6 +219,7 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
             detailVC.skillTitle = curSkill.title
             detailVC.skillDesc = curSkill.desc
             detailVC.skillInstr = curSkill.instr
+            detailVC.skillDiff = curSkill.difficulty
         }
     }
     

@@ -19,24 +19,26 @@ class LogInViewController: UIViewController {
     
     @IBAction func loginButtonPressed(_ sender: Any) {
         guard let email = emailField.text, !email.isEmpty,
-              let password = passwordField.text, !password.isEmpty else {
-            errorMessage.text = "Please enter both email and password."
-            return
-        }
+            let password = passwordField.text, !password.isEmpty else {
+                errorMessage.text = "Please enter both email and password."
+                return
 
-        // Set the shared username before creating the account
-        SharedData.shared.username = email
-        
-        // Attempt to log the user in
-        Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
-            if let error = error as NSError? {
-                // Display error message if login fails
-                self.errorMessage.text = "\(error.localizedDescription)"
-            } else {
-                // Clear error message and proceed to the home screen on successful login
-                self.errorMessage.text = ""
-                self.goToHomeScreen()
             }
+
+            // Set the shared username before creating the account
+            SharedData.shared.username = email
+
+            // Attempt to log the user in
+            Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
+                if let error = error as NSError? {
+                    // Display error message if login fails
+                    self.errorMessage.text = "\(error.localizedDescription)"
+                    
+                } else {
+                    // Clear error message and proceed to the home screen on successful login
+                    self.errorMessage.text = ""
+                    self.goToHomeScreen()
+                }
         }
     }
     

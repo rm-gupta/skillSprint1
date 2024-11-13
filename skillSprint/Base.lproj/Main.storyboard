@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dlu-gK-Mua">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dlu-gK-Mua">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -842,6 +843,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="createAccountButtonPressed:" destination="wr6-e1-dsr" eventType="touchUpInside" id="pfx-Ii-qUb"/>
+                                    <segue destination="c5v-Va-7vY" kind="presentation" modalPresentationStyle="fullScreen" id="sg6-rY-4b5"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvc-de-exJ">
@@ -1164,9 +1166,88 @@
             </objects>
             <point key="canvasLocation" x="2994.6564885496182" y="1540.8450704225354"/>
         </scene>
+        <!--Badges View Controller-->
+        <scene sceneID="h0n-ij-kYa">
+            <objects>
+                <viewController id="c5v-Va-7vY" customClass="BadgesViewController" customModule="skillSprint" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YGo-YX-HUL">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8ld-3G-Oy7">
+                                <rect key="frame" x="28" y="126" width="337" height="600"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GYB-hz-bre">
+                                    <size key="itemSize" width="160" height="160"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BadgeCell" id="EOy-Lc-LPl" customClass="BadgeCell" customModule="skillSprint" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gBf-Mv-1Iz">
+                                            <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yp2-5v-yco">
+                                                    <rect key="frame" x="8" y="136" width="144" height="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LN6-iY-l6z">
+                                                    <rect key="frame" x="20" y="13" width="120" height="120"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="LN6-iY-l6z" firstAttribute="centerX" secondItem="Yp2-5v-yco" secondAttribute="centerX" id="5eo-XH-9JK"/>
+                                                <constraint firstItem="Yp2-5v-yco" firstAttribute="top" secondItem="LN6-iY-l6z" secondAttribute="bottom" constant="3" id="Cc9-Pp-43N"/>
+                                                <constraint firstItem="LN6-iY-l6z" firstAttribute="top" secondItem="gBf-Mv-1Iz" secondAttribute="top" constant="13" id="Deb-o6-uPT"/>
+                                                <constraint firstItem="Yp2-5v-yco" firstAttribute="leading" secondItem="gBf-Mv-1Iz" secondAttribute="leadingMargin" id="I7I-qc-lV3"/>
+                                                <constraint firstItem="LN6-iY-l6z" firstAttribute="leading" secondItem="gBf-Mv-1Iz" secondAttribute="leading" constant="20" id="RNh-MX-6qs"/>
+                                                <constraint firstItem="Yp2-5v-yco" firstAttribute="trailing" secondItem="gBf-Mv-1Iz" secondAttribute="trailingMargin" id="eV8-Wv-zqa"/>
+                                                <constraint firstAttribute="bottom" secondItem="Yp2-5v-yco" secondAttribute="bottom" constant="9" id="jcc-rL-tIr"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemGray3Color"/>
+                                        <connections>
+                                            <outlet property="badgeImageView" destination="LN6-iY-l6z" id="O1w-UB-GoJ"/>
+                                            <outlet property="badgeLabel" destination="Yp2-5v-yco" id="FRL-CK-X6c"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Achievements" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1g-d9-hyC">
+                                <rect key="frame" x="16" y="88" width="153" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="HCa-1y-O9R"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="8ld-3G-Oy7" firstAttribute="centerX" secondItem="YGo-YX-HUL" secondAttribute="centerX" id="03x-X3-ujQ"/>
+                            <constraint firstItem="8ld-3G-Oy7" firstAttribute="leading" secondItem="HCa-1y-O9R" secondAttribute="leading" constant="28" id="eQC-oj-2E3"/>
+                            <constraint firstItem="8ld-3G-Oy7" firstAttribute="top" secondItem="HCa-1y-O9R" secondAttribute="top" constant="126" id="gvK-s7-Sda"/>
+                            <constraint firstItem="8ld-3G-Oy7" firstAttribute="centerY" secondItem="YGo-YX-HUL" secondAttribute="centerY" id="hFM-BE-BAc"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="bps-Hc-MiN"/>
+                    <connections>
+                        <outlet property="collectionView" destination="8ld-3G-Oy7" id="Zq0-Xj-8R8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c2j-b6-dNv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="441.98473282442745" y="1492.9577464788733"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="4d3-C7-qRX"/>
+        <segue reference="4ir-GD-pE9"/>
         <segue reference="jeQ-J5-WF1"/>
         <segue reference="8Hb-El-MMO"/>
     </inferredMetricsTieBreakers>
@@ -1190,16 +1271,19 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

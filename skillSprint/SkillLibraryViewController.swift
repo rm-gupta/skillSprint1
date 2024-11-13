@@ -23,6 +23,7 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyTheme()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
@@ -31,6 +32,11 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
         prepareDropdown()
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            applyTheme() // Re-apply theme every time the view appears
+        }
     
     func prepareDropdown() {
         let filterOptions = [
@@ -173,6 +179,10 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
             detailVC.skillDesc = curSkill.desc
             detailVC.skillInstr = curSkill.instr
         }
+    }
+    
+    private func applyTheme() {
+        view.backgroundColor = ColorThemeManager.shared.backgroundColor
     }
     
 

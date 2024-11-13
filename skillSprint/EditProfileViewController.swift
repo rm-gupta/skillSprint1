@@ -23,6 +23,7 @@ class EditProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyTheme()
         
         // Code to make frame circular and make photo fit in bounds
         profImage.layer.cornerRadius = profImage.frame.size.width / 2
@@ -34,8 +35,13 @@ class EditProfileViewController: UIViewController {
 
     }
     
+    private func applyTheme() {
+        view.backgroundColor = ColorThemeManager.shared.backgroundColor
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        applyTheme()
 
         // Load the profile image URL from UserDefaults
         if let imageUrlString = UserDefaults.standard.string(forKey: "profileImageURL"),

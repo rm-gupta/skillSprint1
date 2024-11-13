@@ -26,5 +26,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:484576550550:ios:6940edd71cd6c99c9a2cb7</string>
+	<key>DATABASE_URL</key>
+	<string>https://skillsprint-3ea96-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

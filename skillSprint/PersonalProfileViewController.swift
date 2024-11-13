@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
+import FirebaseAuth
 
 protocol TextChanger {
     func changeName(newName: String)
@@ -31,123 +34,112 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
     
     let greenColor = UIColor(red: 125/255.0, green: 207/255.0, blue: 150/255.0, alpha: 1.0)
     
+    // Firebase Database reference
+    var ref: DatabaseReference!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        applyTheme()
+
+        // Initialize the Firebase database reference
+        ref = Database.database().reference()
 
         // Set the username label from SharedData
         usernameLabel.text = SharedData.shared.usernameWithAtSymbol
-        
         editProfButton.backgroundColor = greenColor
-        
-        // Retrieve saved name and tagline from UserDefaults
-        if let savedName = UserDefaults.standard.string(forKey: "savedName") {
-            nameLabel.text = savedName
-        }
-        
-        if let savedTagline = UserDefaults.standard.string(forKey: "savedTagline") {
-            taglineLabel.text = savedTagline
-        }
-        
-        //add gear icon button
+
+        // Load profile data for the current user from Firebase
+        loadCurrentUserProfile()
+
+        // Add gear icon button
         let settingsButton = UIButton(type: .system)
-        
-        // Set the custom image from your assets
         let gearImage = UIImage(named: "gearIcon")
         settingsButton.setImage(gearImage, for: .normal)
         settingsButton.tintColor = .black
-        
-        // Set button frame or constraints
         settingsButton.frame = CGRect(x: 35, y: 100, width: 30, height: 30)
-        
-        // Add button to the view
+            
         view.addSubview(settingsButton)
-        
+
+            
         // Add camera shutter icon
         let shutterButton = UIButton(type: .system)
-        
-        // Set the custom image from your assets
         let shutterImage = UIImage(named: "camShutterIcon")
         shutterButton.setImage(shutterImage, for: .normal)
         shutterButton.tintColor = .black
-        
-        // Set button frame or constraints
         shutterButton.frame = CGRect(x: 340, y: 100, width: 30, height: 30)
-        // Add button to the view
         view.addSubview(shutterButton)
-        
-        // Retrieve the stored URL
-        if let imageUrlString = UserDefaults.standard.string(forKey: "profileImageURL"),
-            let imageUrl = URL(string: imageUrlString) {
-                downloadImage(from: imageUrl)
+    }
+
+    func loadCurrentUserProfile() {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+
+        // Observe changes to name, tagline, and profile image in real-time
+        ref.child("users").child(userID).observe(.value) { snapshot in
+            if let userData = snapshot.value as? [String: Any] {
+                if let name = userData["name"] as? String {
+                    self.nameLabel.text = name
+                }
+
+            if let tagline = userData["tagline"] as? String {
+                self.taglineLabel.text = tagline
+            }
+
+            if let profileImageUrlString = userData["profileImageUrl"] as? String,
+                let profileImageUrl = URL(string: profileImageUrlString) {
+                self.downloadImage(from: profileImageUrl)
+                }
+            }
         }
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        applyTheme()
-        // Update the currentName and currentTagline with existing values
-        currentName = nameLabel.text
-        currentTagline = taglineLabel.text
+
         
-        // Retrieve the stored URL
-        if let imageUrlString = UserDefaults.standard.string(forKey: "profileImageURL"),
-           let imageUrl = URL(string: imageUrlString) {
-            downloadImage(from: imageUrl)
-        }
-        
-    }
-    
-    private func applyTheme() {
-        view.backgroundColor = ColorThemeManager.shared.backgroundColor
-    }
-    
+
     func downloadImage(from url: URL) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data, error == nil else {
                 print("Error downloading image: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
+
             DispatchQueue.main.async {
-                if let image = UIImage(data: data) {
-                    self.profImgView.image = image // Update the ImageView
-                    print("Image updated successfully.")
-                } else {
-                    print("Failed to create image from data.")
-                }
+
+            if let image = UIImage(data: data) {
+                self.profImgView.image = image
+                print("Image updated successfully.")
+            } else {
+                print("Failed to create image from data.")
+            }
             }
         }.resume()
     }
-    
-    //
+
+
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "EditProfileSegue",
-           let nextVC = segue.destination as? EditProfileViewController {
+            let nextVC = segue.destination as? EditProfileViewController {
                 nextVC.delegateText = self
-                // Pass the current name and tagline to the edit profile view controller
                 nextVC.currentName = nameLabel.text
                 nextVC.currentTagline = taglineLabel.text
+            }
         }
-    }
+
 
     // If the name field is changed
     func changeName(newName: String) {
-        nameLabel.text = newName
-        // Save the name in UserDefaults
-        UserDefaults.standard.set(newName, forKey: "savedName")
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        ref.child("users").child(userID).child("name").setValue(newName)
     }
-    
+
     // If the tagline field is changed
     func changeTagline(newTagline: String) {
-        taglineLabel.text = newTagline
-        // Save the tagline in UserDefaults
-        UserDefaults.standard.set(newTagline, forKey: "savedTagline")
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        ref.child("users").child(userID).child("tagline").setValue(newTagline)
     }
-    
+
     func updateProfileImage(newImage: UIImage) {
         profImgView.image = newImage
+        // Code for uploading new image to Firebase Storage and updating profile image URL in the database would go here.
     }
-    
-    
-
 }
+
+

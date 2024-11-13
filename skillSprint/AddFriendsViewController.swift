@@ -9,14 +9,12 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
-struct User {
+struct User: Codable {
     let id: String
     let username: String
     let name: String
     let tagline: String
 }
-
-
 
 // MARK: - User Profile View Controller
 class UserProfileViewController: UIViewController {
@@ -397,13 +395,28 @@ extension AddFriendsViewController: UITableViewDataSource {
     }
 }
 
-
-
 class EnhancedFriendCell: UITableViewCell {
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16, weight: .medium)
+        return label
+    }()
 
-    private let nameLabel = UILabel()
-    private let usernameLabel = UILabel()
-    private let taglineLabel = UILabel()
+    private let usernameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .gray
+        return label
+    }()
+
+    private let taglineLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .gray
+        label.numberOfLines = 2
+        return label
+    }()
+
     private let actionButton = UIButton(type: .system)
 
     var onActionButtonTap: (() -> Void)?
@@ -414,11 +427,9 @@ class EnhancedFriendCell: UITableViewCell {
         // Add labels and button to the cell's content view
         let stackView = UIStackView(arrangedSubviews: [nameLabel, usernameLabel, taglineLabel, actionButton])
         stackView.axis = .vertical
-        stackView.spacing = 8
+        stackView.spacing = 4
         stackView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(stackView)
-
-
 
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -426,9 +437,8 @@ class EnhancedFriendCell: UITableViewCell {
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
-        
-        actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
 
+        actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
     }
 
     required init?(coder: NSCoder) {
@@ -441,10 +451,10 @@ class EnhancedFriendCell: UITableViewCell {
         taglineLabel.text = user.tagline
         actionButton.setTitle(isFriend ? "Remove Friend" : "Add Friend", for: .normal)
         onActionButtonTap = action
-
     }
 
     @objc private func actionButtonTapped() {
         onActionButtonTap?()
     }
 }
+

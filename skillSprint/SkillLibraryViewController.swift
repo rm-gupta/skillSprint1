@@ -81,6 +81,7 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
         sortBttn.menu = sort
         sortBttn.showsMenuAsPrimaryAction = true
     }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterOption = nil
         sortOption = nil

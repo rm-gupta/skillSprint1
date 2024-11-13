@@ -134,7 +134,8 @@ class HomeScreenViewController: UIViewController {
             // print("easy: \(easySelected), med: \(mediumSelected), hard: \(hardSelected)")
             // Calculate a daily index based on the day of the year
             let totalSkills = filteredDocuments.count
-            let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: Date()) ?? 1
+//            let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: Date()) ?? 1
+            let dayOfYear = 9
             let skillIndex = dayOfYear % totalSkills
 
             // Get the skill for today using the calculated index

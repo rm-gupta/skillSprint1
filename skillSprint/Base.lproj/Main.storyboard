@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dlu-gK-Mua">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dlu-gK-Mua">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -867,7 +867,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="createAccountButtonPressed:" destination="wr6-e1-dsr" eventType="touchUpInside" id="pfx-Ii-qUb"/>
-                                    <segue destination="c5v-Va-7vY" kind="presentation" modalPresentationStyle="fullScreen" id="sg6-rY-4b5"/>
+                                    <segue destination="c5v-Va-7vY" kind="show" id="sg6-rY-4b5"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvc-de-exJ">
@@ -1211,12 +1211,12 @@
             <objects>
                 <viewController id="c5v-Va-7vY" customClass="BadgesViewController" customModule="skillSprint" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YGo-YX-HUL">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8ld-3G-Oy7">
-                                <rect key="frame" x="28" y="126" width="337" height="600"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="28" y="126" width="337" height="590"/>
+                                <color key="backgroundColor" red="1" green="0.99607843159999998" blue="0.96078431610000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GYB-hz-bre">
                                     <size key="itemSize" width="160" height="160"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1251,7 +1251,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="Yp2-5v-yco" secondAttribute="bottom" constant="9" id="jcc-rL-tIr"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemGray3Color"/>
+                                        <color key="backgroundColor" red="0.96841150522232056" green="0.93851684267078173" blue="0.63272380388169136" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <connections>
                                             <outlet property="badgeImageView" destination="LN6-iY-l6z" id="O1w-UB-GoJ"/>
                                             <outlet property="badgeLabel" destination="Yp2-5v-yco" id="FRL-CK-X6c"/>
@@ -1268,7 +1268,7 @@
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HCa-1y-O9R"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="1" green="0.99607843159999998" blue="0.96078431610000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="8ld-3G-Oy7" firstAttribute="centerX" secondItem="YGo-YX-HUL" secondAttribute="centerX" id="03x-X3-ujQ"/>
                             <constraint firstItem="8ld-3G-Oy7" firstAttribute="leading" secondItem="HCa-1y-O9R" secondAttribute="leading" constant="28" id="eQC-oj-2E3"/>
@@ -1318,9 +1318,6 @@
         </systemColor>
         <systemColor name="systemBrownColor">
             <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGray3Color">
-            <color red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

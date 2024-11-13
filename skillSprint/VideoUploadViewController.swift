@@ -52,7 +52,7 @@ class VideoUploadViewController: UIViewController, UIImagePickerControllerDelega
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let videoURL = info[.mediaURL] as? URL {
             uploadVideoToFirebase(fileURL: videoURL)
-            BadgeManager.shared.completeSkill()
+            BadgeManager.shared.checkBadges()
         }
         picker.dismiss(animated: true, completion: nil)
     }

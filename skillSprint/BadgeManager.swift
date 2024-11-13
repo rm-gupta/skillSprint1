@@ -17,22 +17,16 @@ class BadgeManager {
     static let shared = BadgeManager()
     
     var badges: [Badge] = [
-        Badge(name: "First Steps", description: "Complete your first skill or upload your first video", iconName: "badge_1", isAchieved: false),
-        Badge(name: "Explorer", description: "Try 5 different skills", iconName: "badge_2", isAchieved: false),
-        Badge(name: "Jack of All Trades", description: "Try a skill in every difficulty", iconName: "badge_3", isAchieved: false),
-        Badge(name: "Milestone Achiever", description: "Reach a milestone of completed skills", iconName: "badge_4", isAchieved: false),
-        Badge(name: "Social Butterfly", description: "Engage with the community by liking or commenting on others’ videos", iconName: "badge_5", isAchieved: false),
-        Badge(name: "Helpful Mentor", description: "Earn 5+ likes on your videos", iconName: "badge_6", isAchieved: false),
-        Badge(name: "Supportive Buddy", description: "Add a friend on SkillSprint", iconName: "badge_1", isAchieved: false)
+        Badge(name: "First Steps", description: "Upload your first video", iconName: "badge_1", isAchieved: false),
+        Badge(name: "Milestone 25", description: "Upload 25 videos", iconName: "badge_2", isAchieved: false),
+        Badge(name: "Second is Best", description: "Upload 2 videos", iconName: "badge_3", isAchieved: false),
+        Badge(name: "Milestone 10", description: "Upload 10 videos", iconName: "badge_4", isAchieved: false),
+        Badge(name: "Milestone 50", description: "Upload 50 videos", iconName: "badge_5", isAchieved: false),
+        Badge(name: "You're Poppin", description: "Upload 5 videos", iconName: "badge_6", isAchieved: false)
     ]
     
     // Badge progress tracking variables
-    private var completedSkills: Int = 0
-    private var differentSkillsTried: Set<String> = []
-    private var difficultiesTried: Set<String> = []
-    private var likesReceived: Int = 0
-    private var friendsAdded: Int = 0
-    private var communityInteractions: Int = 0
+    private var uploadedVideos: Int = 0
     
     // Function to add a test badge
     func addTestBadge() {
@@ -42,77 +36,53 @@ class BadgeManager {
         badges.append(testBadge)
         badges.append(testBadge2)
         badges.append(testBadge3)
-
     }
     
     // Badge check methods
-    func completeSkill() {
-        completedSkills += 1
-        checkMilestoneAchiever()
-        checkExplorer()
-        checkJackOfAllTrades()
+    func checkBadges() {
+        uploadedVideos += 1
         checkFirstSteps()
-    }
-    
-    func uploadVideo() {
-        checkFirstSteps()
-    }
-    
-    func interactWithCommunity() {
-        communityInteractions += 1
-        checkSocialButterfly()
-    }
-    
-    func receiveLikeOnVideo() {
-        likesReceived += 1
-        checkHelpfulMentor()
-    }
-    
-    func addFriend() {
-        friendsAdded += 1
-        checkSupportiveBuddy()
+        checkMilestone25()
+        checkSecondIsBest()
+        checkMilestone10()
+        checkMilestone50()
+        checkYourePoppin()
     }
     
     // Badge check implementations
     private func checkFirstSteps() {
         if !badges[0].isAchieved {
-            badges[0].isAchieved = completedSkills > 0 || communityInteractions > 0
+            badges[0].isAchieved = uploadedVideos > 0
         }
     }
     
-    private func checkExplorer() {
+    private func checkMilestone25() {
         if !badges[1].isAchieved {
-            badges[1].isAchieved = differentSkillsTried.count >= 5
+            badges[1].isAchieved = uploadedVideos >= 25
         }
     }
     
-    private func checkJackOfAllTrades() {
+    private func checkSecondIsBest() {
         if !badges[2].isAchieved {
-            badges[2].isAchieved = difficultiesTried.count >= 3
+            badges[2].isAchieved = uploadedVideos >= 2
         }
     }
     
-    private func checkMilestoneAchiever() {
+    private func checkMilestone10() {
         if !badges[3].isAchieved {
-            badges[3].isAchieved = completedSkills >= 10
+            badges[3].isAchieved = uploadedVideos >= 10
         }
     }
     
-    private func checkSocialButterfly() {
+    private func checkMilestone50() {
         if !badges[4].isAchieved {
-            badges[4].isAchieved = communityInteractions >= 1
+            badges[4].isAchieved = uploadedVideos >= 50
         }
     }
     
-    private func checkHelpfulMentor() {
+    private func checkYourePoppin() {
         if !badges[5].isAchieved {
-            badges[5].isAchieved = likesReceived >= 5
-        }
-    }
-    
-    private func checkSupportiveBuddy() {
-        if !badges[6].isAchieved {
-            badges[6].isAchieved = friendsAdded >= 1
+            badges[5].isAchieved = uploadedVideos >= 5
         }
     }
     

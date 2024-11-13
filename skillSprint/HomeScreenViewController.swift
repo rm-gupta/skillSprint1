@@ -11,6 +11,8 @@ class HomeScreenViewController: UIViewController {
 
     @IBOutlet weak var streakLabel: UILabel!
     
+    private var dateChangeTimer: Timer?
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var diffLabel: UILabel!
@@ -28,7 +30,7 @@ class HomeScreenViewController: UIViewController {
         displayCurrentDate()
         loadUserStreakAndScore()
         fetchOneSkill()
-        
+                
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(updateSkillForSelectedDifficulty),
@@ -36,9 +38,34 @@ class HomeScreenViewController: UIViewController {
             object: nil)
     }
     
-    // Refetch a skill that matches the updated difficulty
-    @objc func updateSkillForSelectedDifficulty() {
-        fetchOneSkill()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Set up the timer with a 60-second interval
+        dateChangeTimer = Timer.scheduledTimer(
+            withTimeInterval: 60,
+            repeats: true
+        ) { [weak self] _ in
+            self?.checkForDateChange()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            dateChangeTimer?.invalidate()
+            dateChangeTimer = nil
+    }
+    
+    func checkForDateChange() {
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        let currentDateString = dateFormatter.string(from: currentDate)
+
+        // Only update if the date has actually changed
+        if dateLabel.text != currentDateString {
+            displayCurrentDate()
+            fetchOneSkill()
+        }
     }
     
     func displayCurrentDate() {
@@ -56,6 +83,11 @@ class HomeScreenViewController: UIViewController {
 
         // Display the date string in the label
         dateLabel.text = dateString
+    }
+    
+    // Refetch a skill that matches the updated difficulty
+    @objc func updateSkillForSelectedDifficulty() {
+        fetchOneSkill()
     }
     
     // This function fetches one skill from the database according to the current date and stores the

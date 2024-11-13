@@ -77,7 +77,7 @@ class DifficultyLevelViewController: UIViewController {
         UserDefaults.standard.set(mediumSwitch.isOn, forKey: "mediumPreference")
         UserDefaults.standard.set(hardSwitch.isOn, forKey: "hardPreference")
         UserDefaults.standard.set(anySwitch.isOn, forKey: "anyPreference")
-        print("easy: \(easySwitch.isOn), med: \(mediumSwitch.isOn), hard: \(hardSwitch.isOn), any: \(anySwitch.isOn)")
+        //print("easy: \(easySwitch.isOn), med: \(mediumSwitch.isOn), hard: \(hardSwitch.isOn), any: \(anySwitch.isOn)")
         NotificationCenter.default.post(name: Notification.Name("DifficultyPreferenceChanged"), object: nil)
     }
         

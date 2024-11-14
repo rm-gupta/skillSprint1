@@ -120,7 +120,12 @@ class AddFriendsViewController: UIViewController {
         setupUI()
         setupDelegates()
         fetchCurrentUserFriends()
-        fetchAllUsers() // Load all users initially
+        fetchAllUsers()
+        applyTheme()
+    }
+    
+    private func applyTheme() {
+        view.backgroundColor = ColorThemeManager.shared.backgroundColor
     }
 
     
@@ -129,6 +134,7 @@ class AddFriendsViewController: UIViewController {
         super.viewWillAppear(animated)
         fetchCurrentUserFriends()  // Refresh the list of current friends when coming
         updateFilteredUsers()
+        applyTheme()
 
     }
 

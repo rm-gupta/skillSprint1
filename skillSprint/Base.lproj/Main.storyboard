@@ -576,6 +576,9 @@
                                     <segment title="Friends"/>
                                     <segment title="Everyone"/>
                                 </segments>
+                                <connections>
+                                    <action selector="visibilitySegmentChanged:" destination="T3t-4C-JvU" eventType="valueChanged" id="HM2-y4-105"/>
+                                </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Badge Visibility" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="veU-jz-gyh">
                                 <rect key="frame" x="35" y="277" width="105" height="18"/>
@@ -647,6 +650,7 @@
                     <navigationItem key="navigationItem" id="6cW-2J-FzJ"/>
                     <connections>
                         <outlet property="darkModeSwitch" destination="QoL-hE-4Aq" id="18u-dn-gda"/>
+                        <outlet property="visibilitySegmentedControl" destination="j8H-Mp-Lhu" id="re5-Lu-W9E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OVy-Iv-TyX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1341,8 +1345,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="4ir-GD-pE9"/>
-        <segue reference="tq3-OL-Rr4"/>
+        <segue reference="4d3-C7-qRX"/>
+        <segue reference="jeQ-J5-WF1"/>
         <segue reference="8Hb-El-MMO"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.27877497670000001" green="0.46033453940000002" blue="0.32939332719999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

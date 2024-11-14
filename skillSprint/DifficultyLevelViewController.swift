@@ -19,11 +19,14 @@ class DifficultyLevelViewController: UIViewController {
         setDefaultDifficultyPreferences()
         loadUserDifficultyPreferences()
     }
-    override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            applyTheme() // Re-apply theme every time the view appears
-        }
     
+    // Re-apply theme every time the view appears
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        applyTheme()
+    }
+    
+    // if the user preferences has not been set yet, assume all difficulties are displayed
     func setDefaultDifficultyPreferences() {
         let defaults = UserDefaults.standard
         if defaults.value(forKey: "easyPreference") == nil {
@@ -34,27 +37,31 @@ class DifficultyLevelViewController: UIViewController {
         }
       }
     
+    // Load saved difficulty preferences, from UserDefaults
     func loadUserDifficultyPreferences() {
-        // Load saved difficulty preferences, e.g., from UserDefaults or Firestore
-        // Here we’re assuming you save preferences as Booleans in UserDefaults
         easySwitch.isOn = UserDefaults.standard.bool(forKey: "easyPreference")
         mediumSwitch.isOn = UserDefaults.standard.bool(forKey: "mediumPreference")
         hardSwitch.isOn = UserDefaults.standard.bool(forKey: "hardPreference")
         anySwitch.isOn = easySwitch.isOn && mediumSwitch.isOn && hardSwitch.isOn
     }
     
+    // Update the other switches if necessary when easy switch is toggled
     @IBAction func easySwitchChanged(_ sender: UISwitch) {
         updateAnySwitch()
     }
-        
+    
+    // Update the other switches if necessary when medium switch is toggled
     @IBAction func mediumSwitchChanged(_ sender: UISwitch) {
         updateAnySwitch()
     }
-        
+    
+    // Update the other switches if necessary when hard switch is toggled
     @IBAction func hardSwitchChanged(_ sender: UISwitch) {
         updateAnySwitch()
     }
-        
+    
+    // Update the other switches if necessary when any switch is toggled
+    // Basically when any is turned on, all the other switches should be on
     @IBAction func anySwitchChanged(_ sender: UISwitch) {
         if anySwitch.isOn {
             easySwitch.isOn = true
@@ -63,29 +70,46 @@ class DifficultyLevelViewController: UIViewController {
         }
     }
     
+    // If any switch is turned off, turn the any preference off
     func updateAnySwitch() {
-        if !easySwitch.isOn || !mediumSwitch.isOn || !hardSwitch.isOn {
-            anySwitch.isOn = false
+        // Show an alert if all difficulty switches are off
+        if !easySwitch.isOn && !mediumSwitch.isOn && !hardSwitch.isOn {
+            let alert = UIAlertController(
+                title: "Selection Required",
+                message: "You must select at least one difficulty level.",
+                preferredStyle: .alert)
+                
+            alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                self.anySwitch.isOn = true
+                self.easySwitch.isOn = true
+                self.mediumSwitch.isOn = true
+                self.hardSwitch.isOn = true
+            })
+            present(alert, animated: true, completion: nil)
+            
         } else {
-            anySwitch.isOn = true
+            anySwitch.isOn = easySwitch.isOn && mediumSwitch.isOn && hardSwitch.isOn
         }
+        
     }
     
+    // When user leaves the screen, save the preferences
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         saveUserDifficultyPreferences()
     }
     
+    // Saves the user preferences of difficulty levels
     func saveUserDifficultyPreferences() {
-        // Save difficulty preferences
         UserDefaults.standard.set(easySwitch.isOn, forKey: "easyPreference")
         UserDefaults.standard.set(mediumSwitch.isOn, forKey: "mediumPreference")
         UserDefaults.standard.set(hardSwitch.isOn, forKey: "hardPreference")
         UserDefaults.standard.set(anySwitch.isOn, forKey: "anyPreference")
-        //print("easy: \(easySwitch.isOn), med: \(mediumSwitch.isOn), hard: \(hardSwitch.isOn), any: \(anySwitch.isOn)")
+        // Notifiy the home screen so that a skill that corresponds to the
+        // user's preferred difficulty shows up
         NotificationCenter.default.post(name: Notification.Name("DifficultyPreferenceChanged"), object: nil)
     }
-    
+
     private func applyTheme() {
         view.backgroundColor = ColorThemeManager.shared.backgroundColor
     }

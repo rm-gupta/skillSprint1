@@ -34,9 +34,10 @@ class SkillDetailViewController: UIViewController {
         
     }
     
+    // Re-apply theme every time the view appears
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
-            applyTheme() // Re-apply theme every time the view appears
+            applyTheme()
         }
     
     private func applyTheme() {

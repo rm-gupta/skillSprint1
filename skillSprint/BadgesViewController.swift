@@ -12,6 +12,7 @@ class BadgesViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyTheme()
         
         BadgeManager.shared.addTestBadge()
         
@@ -22,6 +23,11 @@ class BadgesViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         collectionView.dataSource = self
         collectionView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        applyTheme()
     }
     
     private func loadBadgesBasedOnVisibility() {

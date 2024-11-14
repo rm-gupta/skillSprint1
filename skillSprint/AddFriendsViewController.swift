@@ -16,6 +16,8 @@ struct User: Codable {
     let tagline: String
 }
 
+var selectedUsername: String?
+
 // MARK: - User Profile View Controller
 class UserProfileViewController: UIViewController {
     private let user: User
@@ -396,6 +398,7 @@ extension AddFriendsViewController: UITableViewDataSource {
 }
 
 class EnhancedFriendCell: UITableViewCell {
+    var onProfileTap: (() -> Void)? //
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .medium)
@@ -451,10 +454,25 @@ class EnhancedFriendCell: UITableViewCell {
         taglineLabel.text = user.tagline
         actionButton.setTitle(isFriend ? "Remove Friend" : "Add Friend", for: .normal)
         onActionButtonTap = action
+        onProfileTap = profileTap // Set the profile tap closure
     }
 
     @objc private func actionButtonTapped() {
         onActionButtonTap?()
+    }
+    
+    // Trigger profile tap when the cell itself is selected or on a specific button tap
+    func profileButtonTapped() {
+        onProfileTap?()
+    }
+    
+    //Seguing to a friend's profile
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showFriendProfile" { // Ensure this identifier matches your segue in storyboard
+            if let destinationVC = segue.destination as? FriendProfileViewController {
+                destinationVC.username = selectedUsername // Pass the selected username here
+            }
+        }
     }
 }
 

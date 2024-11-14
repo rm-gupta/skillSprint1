@@ -1,7 +1,10 @@
 # Contributions
 ## Beta Release
 ### Divya Nitin (25%)
-- 
+- Implemented Settings scrreen
+- Added light/dark mode settings to all view controllers
+- Addded logout button and fixed login/create account sign in error message
+- Added badge visibility logic and button
 
 ### Regina Zhou (25%)
 - Generated more skills and added to the Firestore database

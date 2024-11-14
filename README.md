@@ -1,12 +1,12 @@
 # Contributions
 ## Beta Release
-### Divya Nitin (25%)
+### Divya Nitin (Release: 25%, Overall: 25%)
 - Implemented Settings screen
 - Added light/dark mode settings to all view controllers
 - Added logout button and fixed login/create account sign in error message
 - Created badge visibility logic to badge view controller and added button to user settings screen
 
-### Regina Zhou (25%)
+### Regina Zhou (Release: 25%, Overall: 25%)
 - Generated more skills and added to the Firestore database
 - Implemented Skills Library Screen that currently stores all the skills
 - Implemented sort, filter, and search functions in Skills Library
@@ -17,10 +17,10 @@
 - Made Skill Details screen scrollable
 - Hid the back button from login to home screen, changed all the back button colors
 
-### Ritu Gupta (25%)
+### Ritu Gupta (Release: 25%, Overall: 25%)
 - 
 
-### Jeanie Ho (25%)
+### Jeanie Ho (Release: 25%, Overall: 25%)
 - Built the badges screen showing achievements with visibility settings.
 - Added badge logic to track milestones and update badge statuses.
 

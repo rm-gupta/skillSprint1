@@ -42,6 +42,10 @@ class FriendProfileViewController: UIViewController {
         // Ensure that user data is correctly passed
         print("Fetching data for user with ID: \(user.id)")
         fetchUserProfileData()
+        applyTheme()
+    }
+    private func applyTheme() {
+        view.backgroundColor = ColorThemeManager.shared.backgroundColor
     }
     
     private func setupUI() {

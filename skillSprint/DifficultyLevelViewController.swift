@@ -22,9 +22,9 @@ class DifficultyLevelViewController: UIViewController {
     
     // Re-apply theme every time the view appears
     override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            applyTheme()
-        }
+        super.viewWillAppear(animated)
+        applyTheme()
+    }
     
     // if the user preferences has not been set yet, assume all difficulties are displayed
     func setDefaultDifficultyPreferences() {
@@ -72,11 +72,25 @@ class DifficultyLevelViewController: UIViewController {
     
     // If any switch is turned off, turn the any preference off
     func updateAnySwitch() {
-        if !easySwitch.isOn || !mediumSwitch.isOn || !hardSwitch.isOn {
-            anySwitch.isOn = false
+        // Show an alert if all difficulty switches are off
+        if !easySwitch.isOn && !mediumSwitch.isOn && !hardSwitch.isOn {
+            let alert = UIAlertController(
+                title: "Selection Required",
+                message: "You must select at least one difficulty level.",
+                preferredStyle: .alert)
+                
+            alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                self.anySwitch.isOn = true
+                self.easySwitch.isOn = true
+                self.mediumSwitch.isOn = true
+                self.hardSwitch.isOn = true
+            })
+            present(alert, animated: true, completion: nil)
+            
         } else {
-            anySwitch.isOn = true
+            anySwitch.isOn = easySwitch.isOn && mediumSwitch.isOn && hardSwitch.isOn
         }
+        
     }
     
     // When user leaves the screen, save the preferences

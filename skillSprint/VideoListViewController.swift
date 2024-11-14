@@ -66,6 +66,7 @@ class VideoListViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "VideoCell", for: indexPath)
         cell.textLabel?.text = videoURLs[indexPath.row].lastPathComponent
+        cell.textLabel?.textColor = .black
         return cell
     }
 

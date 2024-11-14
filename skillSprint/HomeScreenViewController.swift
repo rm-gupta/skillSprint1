@@ -31,7 +31,10 @@ class HomeScreenViewController: UIViewController {
         displayCurrentDate()
         loadUserStreakAndScore()
         fetchOneSkill()
-                
+        
+        // Receive a notification from difficulty preference screen,
+        // so that when the difficulty setting is changed, display
+        // the skill that is within that difficulty
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(updateSkillForSelectedDifficulty),
@@ -39,15 +42,15 @@ class HomeScreenViewController: UIViewController {
             object: nil)
     }
     
-    
+    // Sets the dark/ligth theme
     private func applyTheme() {
         view.backgroundColor = ColorThemeManager.shared.backgroundColor
     }
     
+    // Set up the timer with a 60-second interval that checks whether the date changed or not
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         applyTheme()
-        // Set up the timer with a 60-second interval
         dateChangeTimer = Timer.scheduledTimer(
             withTimeInterval: 60,
             repeats: true
@@ -56,12 +59,14 @@ class HomeScreenViewController: UIViewController {
         }
     }
     
+    // Disables the timer when the user leaves the home screen
     override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
             dateChangeTimer?.invalidate()
             dateChangeTimer = nil
     }
     
+    // Checks if the data has changed, and update the date on home screen if needed
     func checkForDateChange() {
         let currentDate = Date()
         let dateFormatter = DateFormatter()
@@ -75,20 +80,18 @@ class HomeScreenViewController: UIViewController {
         }
     }
     
+    // Displays the current date on the home screen
     func displayCurrentDate() {
-        // Get the current date
         let currentDate = Date()
 
         // Set up the date formatter
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium // Use .short, .medium, .long, or .full as needed
-        dateFormatter.timeStyle = .none // Adjust if you also want to display time
-        dateFormatter.locale = Locale.current // Optional: sets the locale to current region
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale.current
 
-        // Format the date as a string
         let dateString = dateFormatter.string(from: currentDate)
 
-        // Display the date string in the label
         dateLabel.text = dateString
     }
     
@@ -97,8 +100,8 @@ class HomeScreenViewController: UIViewController {
         fetchOneSkill()
     }
     
-    // This function fetches one skill from the database according to the current date and stores the
-    // attributes title, description, and instruction of the skill.
+    // This function fetches one skill from the database according to the current date,
+    // and then stores the attributes of the skill that are needed for display
     func fetchOneSkill() {
         db.collection("skills").getDocuments { (snapshot, error) in
             if let error = error {
@@ -114,6 +117,7 @@ class HomeScreenViewController: UIViewController {
             
             let defaults = UserDefaults.standard
             
+            // If the user's difficulty preferences are not set, set all to true
             if defaults.value(forKey: "easyPreference") == nil {
                 defaults.set(true, forKey: "easyPreference")
                 defaults.set(true, forKey: "mediumPreference")
@@ -125,28 +129,27 @@ class HomeScreenViewController: UIViewController {
             let mediumSelected = UserDefaults.standard.bool(forKey: "mediumPreference")
             let hardSelected = UserDefaults.standard.bool(forKey: "hardPreference")
             
+            // Filter the documents to display according to user preferences;
+            // The preferences are set up in the settings.
             let filteredDocuments = documents.filter { document in
                 let difficulty = document.data()["difficulty"] as? String ?? ""
                 return (difficulty == "easy" && easySelected) ||
                         (difficulty == "med" && mediumSelected) ||
                         (difficulty == "hard" && hardSelected)
             }
-            // print("easy: \(easySelected), med: \(mediumSelected), hard: \(hardSelected)")
-            // Calculate a daily index based on the day of the year
+            
             let totalSkills = filteredDocuments.count
-//            let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: Date()) ?? 1
-            let dayOfYear = 9
-            let skillIndex = dayOfYear % totalSkills
+            let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: Date()) ?? 1
+            let skillIndex = dayOfYear % totalSkills // The home screen displays skill according to day of year
 
-            // Get the skill for today using the calculated index
             let document = filteredDocuments[skillIndex]
             let data = document.data()
+            
             self.skillTitle = data["title"] as? String ?? "No Title"
             self.skillDesc = data["description"] as? String ?? "No Description"
             self.skillInstr = data["instruction"] as? String ?? "No Instructions"
             self.skillDiff = data["difficulty"] as? String ?? "No Difficulty"
 
-            // Update the UI on the main thread
             DispatchQueue.main.async {
                 self.titleLabel.text = self.skillTitle
                 self.descLabel.text = self.skillDesc
@@ -155,9 +158,9 @@ class HomeScreenViewController: UIViewController {
         }
     }
     
+    // when segue triggered, pass revelent information to the
+    // skill details screen.
     override func prepare(for segue: UIStoryboardSegue, sender:Any?){
-        // when segue triggered, pass revelent information to the
-        // skill details screen.
         if segue.identifier == "homeToDetails",
            let detailVC = segue.destination as? SkillDetailViewController{
             detailVC.delegate = self
@@ -165,9 +168,9 @@ class HomeScreenViewController: UIViewController {
             detailVC.skillDesc = self.skillDesc
             detailVC.skillInstr = self.skillInstr
             detailVC.skillDiff = self.skillDiff
-            print("skillTitle: \(skillTitle ?? "nil")")
-            print("skillDesc: \(skillDesc ?? "nil")")
-            print("skillInstr: \(skillInstr ?? "nil")")
+//            print("skillTitle: \(skillTitle ?? "nil")")
+//            print("skillDesc: \(skillDesc ?? "nil")")
+//            print("skillInstr: \(skillInstr ?? "nil")")
             
         }
     }

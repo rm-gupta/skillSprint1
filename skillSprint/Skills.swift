@@ -5,6 +5,7 @@
 //  Created by Heyu Zhou on 11/11/24.
 //
 
+// Class that contains attributes for the skills database.
 class Skills {
     var id: String
     var title: String

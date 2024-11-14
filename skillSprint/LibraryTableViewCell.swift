@@ -7,12 +7,13 @@
 
 import UIKit
 
+// Custom tabel view cell for the skill library tabel view
 class LibraryTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var difficultyLabel: UILabel!
     
-    // This is not linked!!!
+    // This is not linked yet
     @IBAction func playPressed(_ sender: UIButton) {
         
     }

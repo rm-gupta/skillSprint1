@@ -1,9 +1,9 @@
 # Contributions
 ## Beta Release
 ### Divya Nitin (25%)
-- Implemented Settings scrreen
+- Implemented Settings screen
 - Added light/dark mode settings to all view controllers
-- Addded logout button and fixed login/create account sign in error message
+- Added logout button and fixed login/create account sign in error message
 - Created badge visibility logic to badge view controller and added button to user settings screen
 
 ### Regina Zhou (25%)
@@ -15,7 +15,7 @@
 - Set the date and time on the home screen so that a new skill is displayed each day
 - Added tab bar at the bottom for home, recording, and profile screens
 - Made Skill Details screen scrollable
-- Hid the back button from login to home screen
+- Hid the back button from login to home screen, changed all the back button colors
 
 ### Ritu Gupta (25%)
 - 

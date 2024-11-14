@@ -1,9 +1,11 @@
 import UIKit
+import FirebaseAuth
 
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var darkModeSwitch: UISwitch!
     @IBOutlet weak var visibilitySegmentedControl: UISegmentedControl!
+    @IBOutlet weak var logoutButton: UIButton! // Connect this button in the storyboard
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +31,32 @@ class SettingsViewController: UIViewController {
         BadgeManager.shared.visibility = selectedVisibility
     }
 
+    @IBAction func logoutButtonTapped(_ sender: UIButton) {
+        do {
+                try Auth.auth().signOut()
+                
+                if let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate,
+                   let window = sceneDelegate.window {
+                    
+                    // Instantiate the login view controller
+                    let loginViewController = storyboard?.instantiateViewController(withIdentifier: "LogInViewController")
+                    
+                    // Wrap login view controller in a navigation controller (if using a navigation stack)
+                    let navigationController = UINavigationController(rootViewController: loginViewController!)
+                    window.rootViewController = navigationController
+                    window.makeKeyAndVisible()
+                    
+                    // Optional transition animation
+                    UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: nil, completion: nil)
+                }
+                
+            } catch let signOutError as NSError {
+                print("Error signing out: \(signOutError.localizedDescription)")
+            }
+    }
+
     private func applyTheme() {
         view.backgroundColor = ColorThemeManager.shared.backgroundColor
     }
 }
-
 

@@ -18,7 +18,9 @@
 - Hid the back button from login to home screen, changed all the back button colors
 
 ### Ritu Gupta (Release: 25%, Overall: 25%)
-- 
+- Implemented the AddFriends screen to find other users
+- Implemented add/remove friend feature
+- Implemented FriendProfile screen to see components of other users' profiles 
 
 ### Jeanie Ho (Release: 25%, Overall: 25%)
 - Built the badges screen showing achievements with visibility settings.
@@ -58,5 +60,4 @@ the home Screen and skill details screen, the user profiles screens, the basic v
 ADDITIONALLY, when creating the user account, the password should be at least 6 characters long, and tne username should follow the email format.
 
 ALSO, the upload/record function needs to be tested on an actual phone.
-
 

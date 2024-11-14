@@ -36,11 +36,13 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
         
     }
     
+    // Re-apply theme every time the view appears
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
-            applyTheme() // Re-apply theme every time the view appears
+            applyTheme()
         }
     
+    // Creates the dropdown choices for filter and sort functions
     func prepareDropdown() {
         let filterOptions = [
             UIAction(title: "Easy") { _ in
@@ -82,6 +84,7 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
         sortBttn.showsMenuAsPrimaryAction = true
     }
     
+    // Filters the search results based on user input in search bar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterOption = nil
         sortOption = nil
@@ -89,7 +92,7 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
         
         guard !searchText.isEmpty else {
             // If search text is empty, show all items
-            searchedList.removeAll() // Clear search results
+            searchedList.removeAll()
             filteredList = skillsList
             tableView.reloadData()
             return
@@ -101,6 +104,7 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
             let instrContains = skill.instr.lowercased().contains(searchText.lowercased())
             return titleContains || descContains || instrContains
         }
+        
         if searchedList.isEmpty {
             filteredList = []
         } else {
@@ -108,10 +112,11 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
             filteredList = searchedList
             updateChoices()
         }
-//        updateChoices()
+        
         tableView.reloadData()
     }
     
+    // Updated the results after filter and sort are applied
     func updateChoices() {
         // when there is still text in the search bar, search from the keyword list
         if !searchedList.isEmpty {
@@ -138,7 +143,6 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
                 difficultyOrder = ["easy": 0, "med": 1, "hard": 2]
             }
                     
-            // Sort `filteredSkillsList` based on the order
             filteredList.sort {
                 let order1 = difficultyOrder[$0.difficulty.lowercased()] ?? 3
                 let order2 = difficultyOrder[$1.difficulty.lowercased()] ?? 3
@@ -149,6 +153,7 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
         tableView.reloadData()
     }
     
+    // Load the all the skills to skillsList from Firestore
     func fetchSkills() {
         db.collection("skills").getDocuments { [weak self] snapshot, error in
             guard let self = self else { return }
@@ -180,35 +185,34 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
         
     }
     
+    // Returns the number of items to display in the table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return skillsList.count
         return filteredList.count
     }
     
+    // Sets the text in each cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // creates a cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "individualSkill", for: indexPath) as! LibraryTableViewCell
         let row = indexPath.row // index of row number
-//        cell.titleLabel.text = skillsList[row].title
         cell.titleLabel.text = filteredList[row].title
-//        let formattedInstructions = skillsList[row].desc.replacingOccurrences(of: "(\\d+\\.)", with: "\n$1", options: .regularExpression)
+
         let formattedInstructions = filteredList[row].desc.replacingOccurrences(of: "(\\d+\\.)", with: "\n$1", options: .regularExpression)
         cell.descLabel.text = formattedInstructions // sets text string label
         cell.difficultyLabel.text = "Difficulty: " + filteredList[row].difficulty
         return cell
     }
     
-    // as soon as user select one of the rows
+    // Make the cell gray only when tapping on it
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true) // only gray when click it
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    // When cell is pressed, leads user to the skill details screen, and
+    // pass relevent information to the details screen
     override func prepare(for segue: UIStoryboardSegue, sender:Any?) {
-        // when segue triggered, pass revelent information to the
-        // skill details screen.
         if segue.identifier == "libToDetail",
            let detailVC = segue.destination as? SkillDetailViewController,
-           let cell = sender as? UITableViewCell, // `sender` is the cell, not the indexPath
+           let cell = sender as? UITableViewCell,
            let indexPath = tableView.indexPath(for: cell)  {
             detailVC.delegate = self
             let curSkill = filteredList[indexPath.row]

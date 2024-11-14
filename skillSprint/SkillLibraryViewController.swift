@@ -211,10 +211,6 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
            let cell = sender as? UITableViewCell, // `sender` is the cell, not the indexPath
            let indexPath = tableView.indexPath(for: cell)  {
             detailVC.delegate = self
-//            let curSkill = skillsList[indexPath.row]
-//            detailVC.skillTitle = curSkill.title
-//            detailVC.skillDesc = curSkill.desc
-//            detailVC.skillInstr = curSkill.instr
             let curSkill = filteredList[indexPath.row]
             detailVC.skillTitle = curSkill.title
             detailVC.skillDesc = curSkill.desc
@@ -225,6 +221,8 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
     
     private func applyTheme() {
         view.backgroundColor = ColorThemeManager.shared.backgroundColor
+        tableView.backgroundColor = ColorThemeManager.shared.backgroundColor
+
     }
     
 

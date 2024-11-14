@@ -13,6 +13,10 @@ class LibraryTableViewCell: UITableViewCell {
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var difficultyLabel: UILabel!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        contentView.backgroundColor =  ColorThemeManager.shared.backgroundColor
+    }
     // This is not linked yet
     @IBAction func playPressed(_ sender: UIButton) {
         

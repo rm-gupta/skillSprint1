@@ -88,5 +88,6 @@ class VideoListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     private func applyTheme() {
         view.backgroundColor = ColorThemeManager.shared.backgroundColor
+        tableView.backgroundColor = ColorThemeManager.shared.backgroundColor
     }
 }

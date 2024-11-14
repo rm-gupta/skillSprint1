@@ -4,6 +4,7 @@
 - 
 
 ### Regina Zhou (25%)
+- Generated more skills and added to the Firestore database
 - Implemented Skills Library Screen that currently stores all the skills
 - Implemented sort, filter, and search functions in Skills Library
 - Added difficulty level preferences to the Settings screen, letting users

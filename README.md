@@ -26,7 +26,7 @@
 
 ### Deviations
 
-## Alpha release
+## Beta release
 ### Divya Nitin (25%)
 - Created Login Screen
 - Developed Create Account Screen with Firebase authentication
@@ -40,7 +40,10 @@
 
 ### Ritu Gupta (25%)
 - Created the User Profile Screen
-- Created the Edit Profile Screen 
+- Created the Edit Profile Screen
+- Created the AddFriendsProfileScreen to find other users
+- Added add/remove friend feature
+- Added ability to view components of other user profiles 
 
 ### Jeanie Ho (25%)
 - Developed the Video Upload Screen with options to record and upload videos

@@ -4,7 +4,7 @@
 - Implemented Settings scrreen
 - Added light/dark mode settings to all view controllers
 - Addded logout button and fixed login/create account sign in error message
-- Added badge visibility logic and button
+- Created badge visibility logic to badge view controller and added button to user settings screen
 
 ### Regina Zhou (25%)
 - Generated more skills and added to the Firestore database

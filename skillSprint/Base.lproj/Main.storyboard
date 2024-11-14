@@ -310,14 +310,14 @@
             <objects>
                 <viewController id="TFi-4N-ojX" customClass="SkillDetailViewController" customModule="skillSprint" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wL8-gK-B6G">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eao-Ec-PuH">
-                                <rect key="frame" x="0.0" y="44" width="393" height="808"/>
-                                <subviews>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                                <subviews>/Users/heyuzhou/Library/Messages/Attachments/42/02/789E2D1E-F789-4421-BBF1-18DF94E423F9/PNG image.png
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YeY-gB-mAY">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33Y-FX-8Gu">
                                                 <rect key="frame" x="25" y="97" width="343" height="20.666666666666671"/>
@@ -326,7 +326,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instruction" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIv-9N-m3v">
-                                                <rect key="frame" x="25" y="127.66666666666664" width="343" height="27.333333333333357"/>
+                                                <rect key="frame" x="25" y="127.66666666666667" width="343" height="27.333333333333329"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -359,7 +359,7 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j0n-6h-Nl4">
-                                <rect key="frame" x="0.0" y="772" width="393" height="80"/>
+                                <rect key="frame" x="0.0" y="762" width="393" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hc8-pc-nIu">
                                         <rect key="frame" x="88.333333333333329" y="23" width="216.33333333333337" height="34"/>
@@ -458,12 +458,12 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xUT-7U-qt0">
-                                <rect key="frame" x="36" y="783" width="49.666666666666657" height="35"/>
+                                <rect key="frame" x="36" y="817" width="49.666666666666657" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="record.circle.fill" catalog="system"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DtT-ey-spB">
-                                <rect key="frame" x="307.33333333333331" y="783" width="49.666666666666686" height="35"/>
+                                <rect key="frame" x="307.33333333333331" y="817" width="49.666666666666686" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="person.circle" catalog="system"/>
                                 <connections>
@@ -471,7 +471,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eT9-6z-6MN">
-                                <rect key="frame" x="169" y="783" width="55" height="35"/>
+                                <rect key="frame" x="169" y="817" width="55" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="house" catalog="system"/>
                                 <connections>
@@ -556,7 +556,6 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZT5-JK-gGv">
                                                     <rect key="frame" x="20" y="0.0" width="353" height="43.666667938232422"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <color key="backgroundColor" red="1" green="0.99607843139999996" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1151,21 +1150,21 @@
             <objects>
                 <viewController id="3L8-qW-mjq" customClass="SkillLibraryViewController" customModule="skillSprint" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Clw-7c-6gS">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skill Library" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1DE-TW-gXO">
-                                <rect key="frame" x="138.66666666666666" y="94" width="115.66666666666666" height="25.333333333333329"/>
+                                <rect key="frame" x="138.66666666666666" y="50" width="115.66666666666666" height="25.333333333333329"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" text="" placeholder="Search key words here" translatesAutoresizingMaskIntoConstraints="NO" id="JHP-U1-dTT">
-                                <rect key="frame" x="23" y="149.33333333333334" width="347" height="56"/>
+                                <rect key="frame" x="23" y="105.33333333333331" width="347" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="kvm-CT-U7K">
-                                <rect key="frame" x="0.0" y="242.33333333333331" width="393" height="619.66666666666674"/>
+                                <rect key="frame" x="0.0" y="198.33333333333331" width="393" height="653.66666666666674"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="individualSkill" rowHeight="186" id="3Tz-BR-wRp" customClass="LibraryTableViewCell" customModule="skillSprint" customModuleProvider="target">
@@ -1245,7 +1244,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="exL-xw-LBx">
-                                <rect key="frame" x="206" y="197.33333333333334" width="79" height="35"/>
+                                <rect key="frame" x="206" y="153.33333333333334" width="79" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain">
                                     <imageReference key="image" image="line.3.horizontal.decrease" catalog="system" symbolScale="medium"/>
@@ -1262,7 +1261,7 @@
                                 </buttonConfiguration>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3t4-r7-qZx">
-                                <rect key="frame" x="289" y="197.33333333333334" width="76" height="35"/>
+                                <rect key="frame" x="289" y="153.33333333333334" width="76" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain">
                                     <imageReference key="image" image="arrow.up.arrow.down" catalog="system" symbolScale="medium"/>
@@ -1279,7 +1278,7 @@
                                 </buttonConfiguration>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Difficulty level:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bp4-cG-cdn">
-                                <rect key="frame" x="97" y="206.33333333333334" width="101" height="18"/>
+                                <rect key="frame" x="97" y="162.33333333333334" width="101" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1461,7 +1460,7 @@
         <segue reference="ufL-w9-ymi"/>
         <segue reference="o5W-Yp-nCx"/>
         <segue reference="8NI-Iw-azb"/>
-        <segue reference="Wko-GH-aIg"/>
+        <segue reference="8Hb-El-MMO"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.27877497670000001" green="0.46033453940000002" blue="0.32939332719999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>

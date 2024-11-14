@@ -473,7 +473,7 @@ class EnhancedFriendCell: UITableViewCell {
     }
     
     //Seguing to a friend's profile
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showFriendProfile" { // Ensure this identifier matches your segue in storyboard
             if let destinationVC = segue.destination as? FriendProfileViewController {
                 destinationVC.username = selectedUsername // Pass the selected username here

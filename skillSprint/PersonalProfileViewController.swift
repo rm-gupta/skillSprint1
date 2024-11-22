@@ -50,19 +50,6 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
 
         // Load profile data for the current user from Firebase
         loadCurrentUserProfile()
-
-        // Add gear icon button
-//        let settingsButton = UIButton(type: .system)
-//        let gearImage = UIImage(named: "gearIcon")
-//        settingsButton.setImage(gearImage, for: .normal)
-//        settingsButton.tintColor = .black
-//        settingsButton.frame = CGRect(x: 35, y: 100, width: 30, height: 30)
-//            
-//        view.addSubview(settingsButton)
-//        settingsButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
-
-        
-
             
         // Add camera shutter icon
         let shutterButton = UIButton(type: .system)

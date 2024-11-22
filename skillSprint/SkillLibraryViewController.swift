@@ -33,7 +33,16 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
         tableView.estimatedRowHeight = 128
         fetchSkills()
         prepareDropdown()
-        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        self.view.endEditing(true)
+//    }
+    
+    @objc private func dissmissKeyboard() {
+        view.endEditing(true)
     }
     
     // Re-apply theme every time the view appears

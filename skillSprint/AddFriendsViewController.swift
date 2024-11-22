@@ -16,80 +16,6 @@ struct User: Codable {
     let tagline: String
 }
 
-// MARK: - User Profile View Controller
-class UserProfileViewController: UIViewController {
-    private let user: User
-    private let stackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.spacing = 16
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        return stack
-
-    }()
-
-    
-    private let nameLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 24, weight: .bold)
-        return label
-    }()
-
-    
-    private let usernameLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 18)
-        label.textColor = .gray
-        return label
-    }()
-
-    
-
-    private let taglineLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
-        label.numberOfLines = 0
-        return label
-    }()
-
-    init(user: User) {
-        self.user = user
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-    }
-
-    private func setupUI() {
-        view.backgroundColor = .white
-        title = user.username
-        view.addSubview(stackView)
-
-        stackView.addArrangedSubview(nameLabel)
-        stackView.addArrangedSubview(usernameLabel)
-        stackView.addArrangedSubview(taglineLabel)
-
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-        ])
-
-        // Configure labels
-        nameLabel.text = user.name
-        usernameLabel.text = "@\(user.username)"
-        taglineLabel.text = user.tagline
-    }
-}
-
-
-
 // MARK: - Add Friends View Controller
 class AddFriendsViewController: UIViewController {
     private let database = Database.database().reference()
@@ -118,12 +44,8 @@ class AddFriendsViewController: UIViewController {
         setupUI()
         setupDelegates()
         fetchCurrentUserFriends()
-        fetchAllUsers()
-        applyTheme()
-    }
-    
-    private func applyTheme() {
-        view.backgroundColor = ColorThemeManager.shared.backgroundColor
+        fetchAllUsers() // Load all users initially
+        self.view.backgroundColor = UIColor(hex: "#FFFEF5")
     }
 
     
@@ -132,7 +54,6 @@ class AddFriendsViewController: UIViewController {
         super.viewWillAppear(animated)
         fetchCurrentUserFriends()  // Refresh the list of current friends when coming
         updateFilteredUsers()
-        applyTheme()
 
     }
 
@@ -370,7 +291,7 @@ extension AddFriendsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let user = filteredUsers[indexPath.row]
-        let profileVC = UserProfileViewController(user: user)
+        let profileVC = FriendProfileViewController(user: user)
         navigationController?.pushViewController(profileVC, animated: true)
     }
 
@@ -386,16 +307,23 @@ extension AddFriendsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let user = filteredUsers[indexPath.row]
-
         let cell = tableView.dequeueReusableCell(withIdentifier: "EnhancedFriendCell", for: indexPath) as! EnhancedFriendCell
 
-        cell.configure(with: user, isFriend: currentUserFriends.contains(user.id)) { [weak self] in
-            if self?.currentUserFriends.contains(user.id) == true {
+        // Determine if the user is a friend
+        let isFriend = currentUserFriends.contains(user.id)
+
+        // Configure the cell with both button actions
+        cell.configure(with: user, isFriend: isFriend, action: { [weak self] in
+            if isFriend {
                 self?.removeFriend(userID: user.id)
             } else {
                 self?.addFriend(userID: user.id)
             }
-        }
+        }, viewProfileAction: { [weak self] in
+            // Navigate to the user's profile when "View Profile" is tapped
+            let profileVC = FriendProfileViewController(user: user)
+            self?.navigationController?.pushViewController(profileVC, animated: true)
+        })
 
         return cell
     }
@@ -423,44 +351,110 @@ class EnhancedFriendCell: UITableViewCell {
         return label
     }()
 
-    private let actionButton = UIButton(type: .system)
+    private let actionButton = UIButton(type: .system) // Add/Remove Friend button
+    private let viewProfileButton = UIButton(type: .system) // View Profile button
 
     var onActionButtonTap: (() -> Void)?
+    var onViewProfileButtonTap: (() -> Void)?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
-        // Add labels and button to the cell's content view
-        let stackView = UIStackView(arrangedSubviews: [nameLabel, usernameLabel, taglineLabel, actionButton])
-        stackView.axis = .vertical
-        stackView.spacing = 4
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(stackView)
-
-        NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
-        ])
-
-        actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
+        setupUI()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(with user: User, isFriend: Bool, action: @escaping () -> Void) {
+    private func setupUI() {
+        // Configure labels
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(usernameLabel)
+        contentView.addSubview(taglineLabel)
+
+        // Configure action button (Add/Remove Friend)
+        contentView.addSubview(actionButton)
+        actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
+        actionButton.layer.cornerRadius = 5
+        actionButton.backgroundColor = UIColor(hex: "#7DCF96")
+        actionButton.setTitleColor(.white, for: .normal)
+        
+        // Set content hugging and compression resistance priorities to allow shrinking
+        actionButton.setContentHuggingPriority(.required, for: .horizontal)
+        actionButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+        // Configure view profile button
+        contentView.addSubview(viewProfileButton)
+        viewProfileButton.addTarget(self, action: #selector(viewProfileButtonTapped), for: .touchUpInside)
+        viewProfileButton.layer.cornerRadius = 5
+        viewProfileButton.backgroundColor = UIColor(hex: "#7DCF96")
+        viewProfileButton.setTitleColor(.white, for: .normal)
+        
+        // Set content hugging and compression resistance priorities to allow shrinking
+        viewProfileButton.setContentHuggingPriority(.required, for: .horizontal)
+        viewProfileButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+        // Set up the layout constraints
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        taglineLabel.translatesAutoresizingMaskIntoConstraints = false
+        actionButton.translatesAutoresizingMaskIntoConstraints = false
+        viewProfileButton.translatesAutoresizingMaskIntoConstraints = false
+
+        // Constraints for labels
+        NSLayoutConstraint.activate([
+            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+
+            usernameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
+            usernameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            usernameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+
+//            taglineLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 5),
+//            taglineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+//            taglineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+//            taglineLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50), // Keep space for buttons
+        ])
+
+        // Constraints for buttons
+        NSLayoutConstraint.activate([
+            // Action Button Constraints
+            actionButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            actionButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            actionButton.heightAnchor.constraint(equalToConstant: 28),
+            actionButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.45), // 45% of contentView width
+
+            // View Profile Button Constraints
+            viewProfileButton.leadingAnchor.constraint(equalTo: actionButton.trailingAnchor, constant: 10), // Small gap between the buttons
+            viewProfileButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            viewProfileButton.heightAnchor.constraint(equalToConstant: 28),
+            viewProfileButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.45), // 45% of contentView width
+            viewProfileButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15)
+        ])
+    }
+
+    func configure(with user: User, isFriend: Bool, action: @escaping () -> Void, viewProfileAction: @escaping () -> Void) {
         nameLabel.text = user.name
         usernameLabel.text = "@\(user.username)"
         taglineLabel.text = user.tagline
+
+        // Configure Add/Remove Friend button
         actionButton.setTitle(isFriend ? "Remove Friend" : "Add Friend", for: .normal)
-        onActionButtonTap = action
+        
+        // Configure View Profile button
+        viewProfileButton.setTitle("View Profile", for: .normal)
+
+        // Set up the closures for button taps
+        self.onActionButtonTap = action
+        self.onViewProfileButtonTap = viewProfileAction
     }
 
     @objc private func actionButtonTapped() {
         onActionButtonTap?()
     }
-}
 
+    @objc private func viewProfileButtonTapped() {
+        onViewProfileButtonTap?()
+    }
+}

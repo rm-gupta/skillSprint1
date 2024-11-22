@@ -52,13 +52,16 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
         loadCurrentUserProfile()
 
         // Add gear icon button
-        let settingsButton = UIButton(type: .system)
-        let gearImage = UIImage(named: "gearIcon")
-        settingsButton.setImage(gearImage, for: .normal)
-        settingsButton.tintColor = .black
-        settingsButton.frame = CGRect(x: 35, y: 100, width: 30, height: 30)
-            
-        view.addSubview(settingsButton)
+//        let settingsButton = UIButton(type: .system)
+//        let gearImage = UIImage(named: "gearIcon")
+//        settingsButton.setImage(gearImage, for: .normal)
+//        settingsButton.tintColor = .black
+//        settingsButton.frame = CGRect(x: 35, y: 100, width: 30, height: 30)
+//            
+//        view.addSubview(settingsButton)
+//        settingsButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
+
+        
 
             
         // Add camera shutter icon
@@ -68,6 +71,12 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
         shutterButton.tintColor = .black
         shutterButton.frame = CGRect(x: 340, y: 100, width: 30, height: 30)
         view.addSubview(shutterButton)
+    }
+    
+    @objc func settingsButtonTapped() {
+        let settingsViewController = SettingsViewController()
+        present(settingsViewController, animated: true, completion: nil)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

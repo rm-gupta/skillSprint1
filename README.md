@@ -1,12 +1,12 @@
 # Contributions
 ## Beta Release
-### Divya Nitin (25%)
-- Implemented Settings scrreen
+### Divya Nitin (Release: 25%, Overall: 25%)
+- Implemented Settings screen
 - Added light/dark mode settings to all view controllers
-- Addded logout button and fixed login/create account sign in error message
+- Added logout button and fixed login/create account sign in error message
 - Created badge visibility logic to badge view controller and added button to user settings screen
 
-### Regina Zhou (25%)
+### Regina Zhou (Release: 25%, Overall: 25%)
 - Generated more skills and added to the Firestore database
 - Implemented Skills Library Screen that currently stores all the skills
 - Implemented sort, filter, and search functions in Skills Library
@@ -15,18 +15,20 @@
 - Set the date and time on the home screen so that a new skill is displayed each day
 - Added tab bar at the bottom for home, recording, and profile screens
 - Made Skill Details screen scrollable
-- Hid the back button from login to home screen
+- Hid the back button from login to home screen, changed all the back button colors
 
-### Ritu Gupta (25%)
-- 
+### Ritu Gupta (Release: 25%, Overall: 25%)
+- Implemented the AddFriends screen to find other users
+- Implemented add/remove friend feature
+- Implemented FriendProfile screen to see components of other users' profiles 
 
-### Jeanie Ho (25%)
+### Jeanie Ho (Release: 25%, Overall: 25%)
 - Built the badges screen showing achievements with visibility settings.
 - Added badge logic to track milestones and update badge statuses.
 
 ### Deviations
 
-## Alpha release
+## Beta release
 ### Divya Nitin (25%)
 - Created Login Screen
 - Developed Create Account Screen with Firebase authentication
@@ -40,7 +42,10 @@
 
 ### Ritu Gupta (25%)
 - Created the User Profile Screen
-- Created the Edit Profile Screen 
+- Created the Edit Profile Screen
+- Created the AddFriendsProfileScreen to find other users
+- Added add/remove friend feature
+- Added ability to view components of other user profiles 
 
 ### Jeanie Ho (25%)
 - Developed the Video Upload Screen with options to record and upload videos
@@ -55,5 +60,4 @@ the home Screen and skill details screen, the user profiles screens, the basic v
 ADDITIONALLY, when creating the user account, the password should be at least 6 characters long, and tne username should follow the email format.
 
 ALSO, the upload/record function needs to be tested on an actual phone.
-
 

@@ -34,6 +34,15 @@ class EditProfileViewController: UIViewController {
         // Load the current values for name and tagline
         nameField.text = currentName
         taglineField.text = currentTagline
+        
+        // Add a tap gesture recognizer to dismiss the keyboard
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+            view.addGestureRecognizer(tapGesture)
+    }
+    
+    //Dismisses the keyboard
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {

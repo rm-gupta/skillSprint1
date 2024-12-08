@@ -13,6 +13,7 @@ class VideoListViewController: UIViewController, UITableViewDelegate, UITableVie
 
     @IBOutlet weak var tableView: UITableView!
     var videoURLs: [URL] = []
+    var videoIDs: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +51,7 @@ class VideoListViewController: UIViewController, UITableViewDelegate, UITableVie
                     
                     if let url = url {
                         self.videoURLs.append(url)
+                        self.videoIDs.append(item.name)
                         DispatchQueue.main.async {
                             self.tableView.reloadData()
                         }
@@ -73,9 +75,27 @@ class VideoListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     // MARK: - TableView Delegate Method (Play Video when tapped)
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let selectedVideoURL = videoURLs[indexPath.row]
+//        playVideo(from: selectedVideoURL)
+//    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedVideoURL = videoURLs[indexPath.row]
-        playVideo(from: selectedVideoURL)
+        let selectedVideoID = videoIDs[indexPath.row]
+        
+        // Create the interactive video player
+        let interactivePlayerVC = InteractiveVideoPlayerViewController()
+        interactivePlayerVC.videoURL = selectedVideoURL
+        interactivePlayerVC.videoID = selectedVideoID
+        
+        // Set up the player
+        let player = AVPlayer(url: selectedVideoURL)
+        interactivePlayerVC.player = player
+        
+        present(interactivePlayerVC, animated: true) {
+            player.play()
+        }
     }
 
     func playVideo(from url: URL) {

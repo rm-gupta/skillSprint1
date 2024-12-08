@@ -9,10 +9,13 @@ import UIKit
 import MobileCoreServices
 import FirebaseStorage
 import UniformTypeIdentifiers // New import for UTType.movie
+import FirebaseAuth
+import FirebaseFirestore
 
 class VideoUploadViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     let videoPicker = UIImagePickerController()
+    private let db = Firestore.firestore()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,9 +93,20 @@ class VideoUploadViewController: UIViewController, UIImagePickerControllerDelega
                     }
 
                     if let downloadURL = url {
-                        print("Download URL: \(downloadURL.absoluteString)")
-                        // Navigate to the next screen and pass the download URL
-                        self.navigateToVideoPlayerScreen(with: downloadURL)
+                        // Create a Firestore document for the video
+                        let videoDocument: [String: Any] = [
+                            "url": downloadURL.absoluteString,
+                            "likes": 0,
+                            "likedBy": [],
+                            "uploadedAt": FieldValue.serverTimestamp()
+                        ]
+                        
+                        self.db.collection("videos").document(filename).setData(videoDocument)
+                        
+                        // Navigate to video player
+                        DispatchQueue.main.async {
+                            self.navigateToVideoPlayerScreen(with: downloadURL)
+                        }
                     }
                 }
             }

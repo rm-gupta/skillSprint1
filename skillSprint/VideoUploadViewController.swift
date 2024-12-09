@@ -16,6 +16,7 @@ class VideoUploadViewController: UIViewController, UIImagePickerControllerDelega
 
     let videoPicker = UIImagePickerController()
     private let db = Firestore.firestore()
+    var selectedSkillID: String? // selected skill id
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +75,19 @@ class VideoUploadViewController: UIViewController, UIImagePickerControllerDelega
 
     // MARK: - Upload Video to Firebase
     func uploadVideoToFirebase(fileURL: URL) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+                print("User is not authenticated.")
+                return
+            }
+        if selectedSkillID == nil {
+            if let skillForToday = UserDefaults.standard.string(forKey: "skillForToday") {
+                selectedSkillID = skillForToday
+                print("Using skillForToday as selectedSkillID: \(skillForToday)")
+            } else {
+                print("No skill selected and no skillForToday found.")
+                return // Exit if no fallback is available
+            }
+        }
         let filename = UUID().uuidString
         let ref = Storage.storage().reference().child("videos").child("\(filename).mp4")
 
@@ -91,18 +105,30 @@ class VideoUploadViewController: UIViewController, UIImagePickerControllerDelega
                         print("Failed to get download URL: \(error.localizedDescription)")
                         return
                     }
-
+                    
                     if let downloadURL = url {
                         // Create a Firestore document for the video
                         let videoDocument: [String: Any] = [
                             "url": downloadURL.absoluteString,
                             "likes": 0,
                             "likedBy": [],
-                            "uploadedAt": FieldValue.serverTimestamp()
+                            "uploadedAt": FieldValue.serverTimestamp(),
+                            "skillID": self.selectedSkillID!
                         ]
                         
                         self.db.collection("videos").document(filename).setData(videoDocument)
                         
+                        self.db.collection("users")
+                            .document(userID)
+                            .collection("skills")
+                            .document(self.selectedSkillID!)
+                            .setData(videoDocument) { error in
+                                if let error = error {
+                                    print("Error saving video data: \(error.localizedDescription)")
+                                } else {
+                                    print("Video data successfully saved.")
+                                }
+                            }
                         // Navigate to video player
                         DispatchQueue.main.async {
                             self.navigateToVideoPlayerScreen(with: downloadURL)
@@ -113,6 +139,8 @@ class VideoUploadViewController: UIViewController, UIImagePickerControllerDelega
         } catch {
             print("Failed to get video data: \(error)")
         }
+        
+        
     }
     
     private func applyTheme() {

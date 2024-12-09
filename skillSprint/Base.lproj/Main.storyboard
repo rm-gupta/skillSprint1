@@ -367,7 +367,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" image="film" catalog="system" title="Upload/Record Video"/>
                                         <connections>
-                                            <segue destination="sqF-ZD-4b7" kind="show" id="0tq-wU-7Ki"/>
+                                            <segue destination="sqF-ZD-4b7" kind="show" identifier="toVideoUploadVC" id="0tq-wU-7Ki"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1485,7 +1485,7 @@
         <segue reference="WIe-sW-CLP"/>
         <segue reference="ufL-w9-ymi"/>
         <segue reference="4ir-GD-pE9"/>
-        <segue reference="8NI-Iw-azb"/>
+        <segue reference="0tq-wU-7Ki"/>
         <segue reference="Wko-GH-aIg"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.27877497670000001" green="0.46033453940000002" blue="0.32939332719999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

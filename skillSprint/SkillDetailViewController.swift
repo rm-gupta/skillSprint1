@@ -19,6 +19,7 @@ class SkillDetailViewController: UIViewController {
     var skillDesc: String?
     var skillInstr: String?
     var skillDiff: String?
+    var skillID: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +43,14 @@ class SkillDetailViewController: UIViewController {
     
     private func applyTheme() {
         view.backgroundColor = ColorThemeManager.shared.backgroundColor
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toVideoUploadVC" {
+            if let videoUploadVC = segue.destination as? VideoUploadViewController {
+                videoUploadVC.selectedSkillID = skillID // Pass the skill ID to VideoUploadViewController
+            }
+        }
     }
 
 }

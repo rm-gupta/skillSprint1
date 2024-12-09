@@ -178,6 +178,9 @@
 				DEVELOPMENT_TEAM = ZT7RF23N3Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = skillSprint/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow access to Photo Library. ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -206,6 +209,9 @@
 				DEVELOPMENT_TEAM = ZT7RF23N3Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = skillSprint/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow access to Photo Library. ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

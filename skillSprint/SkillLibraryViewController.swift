@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseFirestore // imported to store data
+import FirebaseAuth
 
 class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
@@ -33,7 +34,16 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
         tableView.estimatedRowHeight = 128
         fetchSkills()
         prepareDropdown()
-        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        self.view.endEditing(true)
+//    }
+    
+    @objc private func dissmissKeyboard() {
+        view.endEditing(true)
     }
     
     // Re-apply theme every time the view appears
@@ -155,34 +165,83 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
     
     // Load the all the skills to skillsList from Firestore
     func fetchSkills() {
-        db.collection("skills").getDocuments { [weak self] snapshot, error in
+//        db.collection("skills").getDocuments { [weak self] snapshot, error in
+//            guard let self = self else { return }
+//            if let error = error {
+//                print("Error fetching skills: \(error.localizedDescription)")
+//                return
+//            }
+//            guard let documents = snapshot?.documents else {
+//                print("No documents in snapshot")
+//                return
+//            }
+//                        
+//            self.skillsList = documents.compactMap { document in
+//                let data = document.data()
+//                return Skills(
+//                    id: document.documentID,
+//                    title: data["title"] as? String ?? "",
+//                    desc: data["description"] as? String ?? "",
+//                    instr: data["instruction"] as? String ?? "",
+//                    difficulty: data["difficulty"] as? String ?? ""
+//                    )
+//                }
+//            self.filteredList = self.skillsList
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+//        }
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User is not authenticated.")
+            return
+        }
+
+        // Step 1: Fetch the user's skills from their skills subcollection
+        db.collection("users").document(userID).collection("skills").getDocuments { [weak self] snapshot, error in
             guard let self = self else { return }
             if let error = error {
-                print("Error fetching skills: \(error.localizedDescription)")
+                print("Error fetching user skills: \(error.localizedDescription)")
                 return
             }
+
             guard let documents = snapshot?.documents else {
-                print("No documents in snapshot")
+                print("No documents in user's skills collection.")
                 return
             }
-                        
-            self.skillsList = documents.compactMap { document in
-                let data = document.data()
-                return Skills(
-                    id: document.documentID,
-                    title: data["title"] as? String ?? "",
-                    desc: data["description"] as? String ?? "",
-                    instr: data["instruction"] as? String ?? "",
-                    difficulty: data["difficulty"] as? String ?? ""
+
+            let skillIDs = documents.map { $0.documentID }
+
+            // Step 2: Fetch skill details from the main skills collection using the skill IDs
+            self.db.collection("skills").whereField(FieldPath.documentID(), in: skillIDs).getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error fetching skills from library: \(error.localizedDescription)")
+                    return
+                }
+
+                guard let documents = snapshot?.documents else {
+                    print("No documents in skills collection.")
+                    return
+                }
+
+                self.skillsList = documents.compactMap { document in
+                    let data = document.data()
+                    return Skills(
+                        id: document.documentID,
+                        title: data["title"] as? String ?? "",
+                        desc: data["description"] as? String ?? "",
+                        instr: data["instruction"] as? String ?? "",
+                        difficulty: data["difficulty"] as? String ?? ""
                     )
                 }
-            self.filteredList = self.skillsList
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+                self.filteredList = self.skillsList
+
+                // Reload the table view on the main thread
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }
-        
-        
+    
     }
     
     // Returns the number of items to display in the table

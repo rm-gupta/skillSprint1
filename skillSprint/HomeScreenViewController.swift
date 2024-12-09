@@ -24,6 +24,7 @@ class HomeScreenViewController: UIViewController {
     var skillDesc: String?
     var skillInstr: String?
     var skillDiff: String?
+    var skillID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -146,6 +147,8 @@ class HomeScreenViewController: UIViewController {
             let document = filteredDocuments[skillIndex]
             let data = document.data()
             
+            self.skillID = document.documentID
+            UserDefaults.standard.set(self.skillID, forKey: "skillForToday")
             self.skillTitle = data["title"] as? String ?? "No Title"
             self.skillDesc = data["description"] as? String ?? "No Description"
             self.skillInstr = data["instruction"] as? String ?? "No Instructions"
@@ -169,10 +172,7 @@ class HomeScreenViewController: UIViewController {
             detailVC.skillDesc = self.skillDesc
             detailVC.skillInstr = self.skillInstr
             detailVC.skillDiff = self.skillDiff
-//            print("skillTitle: \(skillTitle ?? "nil")")
-//            print("skillDesc: \(skillDesc ?? "nil")")
-//            print("skillInstr: \(skillInstr ?? "nil")")
-            
+            detailVC.skillID = self.skillID
         }
     }
     

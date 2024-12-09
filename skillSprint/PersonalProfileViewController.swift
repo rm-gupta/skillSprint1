@@ -9,6 +9,8 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
+import FirebaseFirestore
+import FirebaseStorage
 
 protocol TextChanger {
     func changeName(newName: String)
@@ -29,6 +31,8 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
     
     var currentName: String?
     var currentTagline: String?
+    private var currentImageURL: String?
+
     
 
     
@@ -67,8 +71,9 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
     }
     
     override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            applyTheme() // Re-apply theme every time the view appears
+        super.viewWillAppear(animated)
+           applyTheme()
+           loadCurrentUserProfile()
         }
     
     
@@ -76,44 +81,69 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
     func loadCurrentUserProfile() {
         guard let userID = Auth.auth().currentUser?.uid else { return }
 
-        // Observe changes to name, tagline, and profile image in real-time
-        ref.child("users").child(userID).observe(.value) { snapshot in
-            if let userData = snapshot.value as? [String: Any] {
-                if let name = userData["name"] as? String {
-                    self.nameLabel.text = name
-                }
+           // Firebase Realtime Database (for name and tagline)
+           ref.child("users").child(userID).observe(.value) { snapshot in
+               if let userData = snapshot.value as? [String: Any] {
+                   if let name = userData["name"] as? String {
+                       self.nameLabel.text = name
+                   }
+                   if let tagline = userData["tagline"] as? String {
+                       self.taglineLabel.text = tagline
+                   }
+               }
+           }
 
-            if let tagline = userData["tagline"] as? String {
-                self.taglineLabel.text = tagline
-            }
+           // Firestore Listener (for profile image)
+           let firestore = Firestore.firestore()
+           firestore.collection("users").document(userID).addSnapshotListener { [weak self] documentSnapshot, error in
+               if let error = error {
+                   print("Error listening for Firestore updates: \(error.localizedDescription)")
+                   return
+               }
 
-            if let profileImageUrlString = userData["profileImageUrl"] as? String,
-                let profileImageUrl = URL(string: profileImageUrlString) {
-                self.downloadImage(from: profileImageUrl)
-                }
-            }
-        }
+               guard let document = documentSnapshot, document.exists,
+                     let profileImageUrlString = document.data()?["profileImageURL"] as? String,
+                     let profileImageUrl = URL(string: profileImageUrlString) else {
+                   print("No profile image URL found.")
+                   return
+               }
+
+               // Debounce updates
+               DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                   self?.downloadImage(from: profileImageUrl)
+               }
+           }
     }
 
         
 
     func downloadImage(from url: URL) {
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data, error == nil else {
-                print("Error downloading image: \(error?.localizedDescription ?? "Unknown error")")
-                return
-            }
+        // Skip redundant updates
+           if currentImageURL == url.absoluteString {
+               return
+           }
 
-            DispatchQueue.main.async {
+           currentImageURL = url.absoluteString // Update the current URL
 
-            if let image = UIImage(data: data) {
-                self.profImgView.image = image
-                print("Image updated successfully.")
-            } else {
-                print("Failed to create image from data.")
-            }
-            }
-        }.resume()
+           let sessionConfig = URLSessionConfiguration.default
+           sessionConfig.requestCachePolicy = .reloadIgnoringLocalCacheData // Ignore cached data
+
+           let session = URLSession(configuration: sessionConfig)
+           session.dataTask(with: url) { (data, response, error) in
+               guard let data = data, error == nil else {
+                   print("Error downloading image: \(error?.localizedDescription ?? "Unknown error")")
+                   return
+               }
+
+               DispatchQueue.main.async {
+                   if let image = UIImage(data: data) {
+                       self.profImgView.image = image
+                       print("Image updated successfully.")
+                   } else {
+                       print("Failed to create image from data.")
+                   }
+               }
+           }.resume()
     }
 
 
@@ -141,8 +171,48 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
     }
 
     func updateProfileImage(newImage: UIImage) {
-        profImgView.image = newImage
-        // Code for uploading new image to Firebase Storage and updating profile image URL in the database would go here.
+        // Update the profile image view immediately
+           DispatchQueue.main.async {
+               self.profImgView.image = newImage
+           }
+
+           // Upload the new image to Firebase Storage
+           guard let imageData = newImage.jpegData(compressionQuality: 0.8),
+                 let userID = Auth.auth().currentUser?.uid else { return }
+
+           let filename = "\(userID)_profile.jpg"
+           let storageRef = Storage.storage().reference().child("profile_photos/\(filename)")
+
+           storageRef.putData(imageData, metadata: nil) { metadata, error in
+               if let error = error {
+                   print("Error uploading photo: \(error.localizedDescription)")
+                   return
+               }
+
+               // Get the download URL and update Firestore
+               storageRef.downloadURL { url, error in
+                   if let error = error {
+                       print("Error getting download URL: \(error.localizedDescription)")
+                       return
+                   }
+
+                   if let downloadURL = url {
+                       self.currentImageURL = downloadURL.absoluteString // Prevent redundant updates
+
+                       let firestore = Firestore.firestore()
+                       firestore.collection("users").document(userID).setData(
+                           ["profileImageURL": downloadURL.absoluteString],
+                           merge: true
+                       ) { error in
+                           if let error = error {
+                               print("Error saving profileImageURL to Firestore: \(error.localizedDescription)")
+                           } else {
+                               print("Profile image URL updated in Firestore.")
+                           }
+                       }
+                   }
+               }
+           }
     }
     
     private func applyTheme() {

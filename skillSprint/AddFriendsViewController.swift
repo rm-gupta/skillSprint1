@@ -45,7 +45,7 @@ class AddFriendsViewController: UIViewController {
         setupDelegates()
         fetchCurrentUserFriends()
         fetchAllUsers() // Load all users initially
-        self.view.backgroundColor = UIColor(hex: "#FFFEF5")
+        self.view.backgroundColor = UIColor(hex: "#FFFEF4")
     }
 
     
@@ -56,8 +56,6 @@ class AddFriendsViewController: UIViewController {
         updateFilteredUsers()
 
     }
-
-    
 
     // MARK: - Setup Methods
     private func setupUI() {
@@ -79,9 +77,6 @@ class AddFriendsViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-
-    
-
     private func setupDelegates() {
         searchBar.delegate = self
         tableView.delegate = self
@@ -107,6 +102,22 @@ class AddFriendsViewController: UIViewController {
         }
     }
 
+    
+    func fetchFriendIDs(completion: @escaping ([String]) -> Void) {
+        guard let currentUserID = Auth.auth().currentUser?.uid else { return }
+        
+        let db = Database.database().reference()
+        db.child("users").child(currentUserID).child("friends").observeSingleEvent(of: .value) { snapshot in
+            var friendIDs: [String] = []
+            for child in snapshot.children {
+                if let snapshot = child as? DataSnapshot,
+                   let friendID = snapshot.value as? String {
+                    friendIDs.append(friendID)
+                }
+            }
+            completion(friendIDs)
+        }
+    }
     
 
     //JUST ADDED THIS
@@ -457,4 +468,6 @@ class EnhancedFriendCell: UITableViewCell {
     @objc private func viewProfileButtonTapped() {
         onViewProfileButtonTap?()
     }
+    
+    
 }

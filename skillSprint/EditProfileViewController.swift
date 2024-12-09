@@ -9,6 +9,7 @@ import UIKit
 import FirebaseStorage
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseFirestore
 
 class EditProfileViewController: UIViewController {
     
@@ -30,14 +31,14 @@ class EditProfileViewController: UIViewController {
         // Code to make frame circular and make photo fit in bounds
         profImage.layer.cornerRadius = profImage.frame.size.width / 2
         profImage.clipsToBounds = true
-
+        
         // Load the current values for name and tagline
         nameField.text = currentName
         taglineField.text = currentTagline
         
         // Add a tap gesture recognizer to dismiss the keyboard
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-            view.addGestureRecognizer(tapGesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
     
     //Dismisses the keyboard
@@ -47,95 +48,124 @@ class EditProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        applyTheme()
-        // Load the profile image URL from UserDefaults
-        if let imageUrlString = UserDefaults.standard.string(forKey: "profileImageURL"),
-        let imageUrl = URL(string: imageUrlString) {
+          applyTheme()
 
-            // Fetch the image from the URL
-            fetchProfileImage(from: imageUrl) { [weak self] image in
-        
-                // Make sure to update the UI on the main thread
-                DispatchQueue.main.async {
-                    self?.profImage.image = image // Update the ImageView with the fetched image
+          guard let userId = Auth.auth().currentUser?.uid else { return }
+          let firestore = Firestore.firestore()
 
-                }
-            }
+          // Clear the cache to avoid stale data
+          URLCache.shared.removeAllCachedResponses()
 
-        }
+          // Fetch the profile image URL from Firestore
+          firestore.collection("users").document(userId).getDocument { [weak self] document, error in
+              if let error = error {
+                  print("Error fetching user data: \(error.localizedDescription)")
+                  return
+              }
 
+              if let document = document, document.exists {
+                  let data = document.data()
+                  if let imageUrlString = data?["profileImageURL"] as? String,
+                     let imageUrl = URL(string: imageUrlString) {
+                      print("Fetched profileImageURL: \(imageUrlString)") // Debug log
+                      self?.fetchProfileImage(from: imageUrl) { image in
+                          DispatchQueue.main.async {
+                              self?.profImage.image = image
+                          }
+                      }
+                  } else {
+                      print("profileImageURL not found in Firestore")
+                  }
+              } else {
+                  print("User document does not exist")
+              }
+          }
     }
     
     private func applyTheme() {
         view.backgroundColor = ColorThemeManager.shared.backgroundColor
     }
-
+    
     // Function to fetch the profile image from a URL
     func fetchProfileImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Error fetching image: \(error.localizedDescription)")
-                completion(nil) // Return nil if there's an error
-                return
-            }
-            
-            // Ensure that the response is valid and data is not nil
-            guard let data = data else {
-                print("No data returned")
-                completion(nil)
-                return
-            }
-
-            // Convert data to image
-            if let image = UIImage(data: data) {
-                completion(image)
-
-            } else {
-                print("Error converting data to image")
-                completion(nil) // Return nil if conversion fails
-            }
-        }
-        task.resume() // Start the data task
+               if let error = error {
+                   print("Error fetching image: \(error.localizedDescription)")
+                   completion(nil)
+                   return
+               }
+               
+               guard let data = data else {
+                   print("No data returned from URL")
+                   completion(nil)
+                   return
+               }
+               
+               if let image = UIImage(data: data) {
+                   completion(image)
+               } else {
+                   print("Failed to convert data to image")
+                   completion(nil)
+               }
+           }
+           task.resume()
     }
-
+    
     
     // If the save button is pressed, this saves that info
     @IBAction func saveButtonPressed(_ sender: Any) {
-        // Ensure that delegateText conforms to both TextChanger and ProfileImageUpdater protocols
-        if let otherVC = delegateText as? TextChanger & ProfileImageUpdater {
-            guard let userId = Auth.auth().currentUser?.uid else { return }
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        let firestore = Firestore.firestore()
+        let ref = Database.database().reference().child("users").child(userId)
+        
+        // Dictionary to hold updated fields
+        var updates: [String: Any] = [:]
 
-            // Database reference to the current user's profile
-            let ref = Database.database().reference().child("users").child(userId)
+        if let newName = nameField.text, !newName.isEmpty {
+            updates["name"] = newName
+        }
 
-            // Create a dictionary to hold the updated fields
-            var updates: [String: Any] = [:]
+        if let newTagline = taglineField.text, !newTagline.isEmpty {
+            updates["tagline"] = newTagline
+        }
 
-            // Check if nameField has a non-empty string, otherwise, keep the existing name
-            if let newName = nameField.text, !newName.isEmpty {
-                otherVC.changeName(newName: newName) // Update delegate
-                updates["name"] = newName // Add to database update dictionary
-
+        // Save changes to Firebase Realtime Database
+        ref.updateChildValues(updates) { error, _ in
+            if let error = error {
+                print("Error updating database: \(error.localizedDescription)")
+            } else {
+                print("Profile updated in Realtime Database!")
             }
+        }
 
-            // Check if taglineField has a non-empty string, otherwise, keep the existing tagline
-            if let newTagline = taglineField.text, !newTagline.isEmpty {
-                otherVC.changeTagline(newTagline: newTagline) // Update delegate
-                updates["tagline"] = newTagline // Add to database update dictionary
+        // Save the profile image if a new image is selected
+        if let selectedImage = selectedImage {
+            // Update the delegate immediately with the new image
+            if let delegate = delegateText as? ProfileImageUpdater {
+                delegate.updateProfileImage(newImage: selectedImage)
             }
-
-            // Update the Firebase database with new values for the current user
-            ref.updateChildValues(updates) { error, _ in
-                if let error = error {
-                    print("Error updating database: \(error.localizedDescription)")
-                } else {
-                    print("Profile updated successfully!")
+            
+            uploadProfilePhoto(image: selectedImage) { url in
+                if let url = url {
+                    firestore.collection("users").document(userId).setData(
+                        ["profileImageURL": url.absoluteString],
+                        merge: true
+                    ) { error in
+                        if let error = error {
+                            print("Error saving profile image URL to Firestore: \(error)")
+                        } else {
+                            print("Profile image URL saved to Firestore!")
+                        }
                     }
                 }
+            }
+        }
 
-                    
-            // Dismiss the current view controller after saving
-            self.dismiss(animated: true)
+        // Dismiss view
+        if let navigationController = navigationController {
+            navigationController.popViewController(animated: true)
+        } else {
+            dismiss(animated: true)
         }
     }
     
@@ -150,47 +180,54 @@ class EditProfileViewController: UIViewController {
     
     // Method to upload the selected profile photo to Firebase Storage
     func uploadProfilePhoto(image: UIImage, completion: @escaping (URL?) -> Void) {
-        guard let imageData = image.jpegData(compressionQuality: 0.8) else { return }
+        guard let imageData = image.jpegData(compressionQuality: 0.8),
+              let userId = Auth.auth().currentUser?.uid else { return }
         
         // Create a unique filename for the image
-        let filename = UUID().uuidString
-        let storageRef = Storage.storage().reference().child("profile_photos/\(filename).jpg")
+        let filename = "\(userId)_profile.jpg"
+        let storageRef = Storage.storage().reference().child("profile_photos/\(filename)")
         
         // Upload the image data
-        storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+        storageRef.putData(imageData, metadata: nil) { metadata, error in
             if let error = error {
                 print("Error uploading photo: \(error)")
-                completion(nil) // Call completion with nil on error
+                completion(nil)
                 return
             }
             
             // Get the download URL
-            storageRef.downloadURL { (url, error) in
+            storageRef.downloadURL { url, error in
                 if let error = error {
                     print("Error getting download URL: \(error)")
-                    completion(nil) // Call completion with nil on error
+                    completion(nil)
                     return
                 }
                 
                 if let downloadURL = url {
                     print("Photo uploaded successfully, download URL: \(downloadURL.absoluteString)")
                     
-                    // Save the download URL to UserDefaults
-                    UserDefaults.standard.set(downloadURL.absoluteString, forKey: "profileImageURL")
-                    print("Stored image URL in UserDefaults")
+                    // Save the download URL to Firestore
+                    let firestore = Firestore.firestore()
+                    firestore.collection("users").document(userId).setData(
+                        ["profileImageURL": downloadURL.absoluteString],
+                        merge: true
+                    ) { error in
+                        if let error = error {
+                            print("Error saving URL to Firestore: \(error)")
+                        } else {
+                            print("Profile image URL saved to Firestore!")
+                        }
+                    }
                     
                     // Call completion with the download URL
                     completion(downloadURL)
-                    
-                    } else {
-                        completion(nil) // Call completion with nil if no URL is returned
-                        }
-
-                    }
+                } else {
+                    completion(nil)
                 }
-
             }
+        }
     }
+}
     
 extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

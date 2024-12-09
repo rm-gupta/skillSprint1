@@ -71,40 +71,40 @@ class LeaderboardViewController: UIViewController {
     private func setupPodiumView(topUsers: [LeaderboardUser]) {
         podiumView.subviews.forEach { $0.removeFromSuperview() } // Clear previous views
 
-        guard topUsers.count >= 3 else { return }
+           guard topUsers.count >= 3 else { return }
 
-        // Create views for the top 3 users
-        let secondPlaceView = createPodiumUserView(user: topUsers[1], position: 2)
-        let firstPlaceView = createPodiumUserView(user: topUsers[0], position: 1)
-        let thirdPlaceView = createPodiumUserView(user: topUsers[2], position: 3)
+           // Create views for the top 3 users
+           let secondPlaceView = createPodiumUserView(user: topUsers[1], position: 2)
+           let firstPlaceView = createPodiumUserView(user: topUsers[0], position: 1)
+           let thirdPlaceView = createPodiumUserView(user: topUsers[2], position: 3)
 
-        podiumView.addSubview(secondPlaceView)
-        podiumView.addSubview(firstPlaceView)
-        podiumView.addSubview(thirdPlaceView)
+           podiumView.addSubview(secondPlaceView)
+           podiumView.addSubview(firstPlaceView)
+           podiumView.addSubview(thirdPlaceView)
 
-        // Constraints for second place (left)
-        NSLayoutConstraint.activate([
-            secondPlaceView.centerYAnchor.constraint(equalTo: podiumView.centerYAnchor, constant: 30),
-            secondPlaceView.leadingAnchor.constraint(equalTo: podiumView.leadingAnchor, constant: 10),
-            secondPlaceView.widthAnchor.constraint(equalToConstant: 100),
-            secondPlaceView.heightAnchor.constraint(equalToConstant: 150)
-        ])
+           // Constraints for second place (left)
+           NSLayoutConstraint.activate([
+               secondPlaceView.centerYAnchor.constraint(equalTo: podiumView.centerYAnchor, constant: 30),
+               secondPlaceView.leadingAnchor.constraint(equalTo: podiumView.leadingAnchor, constant: 10),
+               secondPlaceView.widthAnchor.constraint(equalToConstant: 100),
+               secondPlaceView.heightAnchor.constraint(equalToConstant: 150)
+           ])
 
-        // Constraints for first place (center)
-        NSLayoutConstraint.activate([
-            firstPlaceView.topAnchor.constraint(equalTo: podiumView.topAnchor),
-            firstPlaceView.centerXAnchor.constraint(equalTo: podiumView.centerXAnchor),
-            firstPlaceView.widthAnchor.constraint(equalToConstant: 120),
-            firstPlaceView.heightAnchor.constraint(equalToConstant: 180)
-        ])
+           // Constraints for first place (center, with upward offset)
+           NSLayoutConstraint.activate([
+               firstPlaceView.topAnchor.constraint(equalTo: podiumView.topAnchor, constant: 15), // Move up
+               firstPlaceView.centerXAnchor.constraint(equalTo: podiumView.centerXAnchor),
+               firstPlaceView.widthAnchor.constraint(equalToConstant: 120),
+               firstPlaceView.heightAnchor.constraint(equalToConstant: 180)
+           ])
 
-        // Constraints for third place (right)
-        NSLayoutConstraint.activate([
-            thirdPlaceView.centerYAnchor.constraint(equalTo: podiumView.centerYAnchor, constant: 30),
-            thirdPlaceView.trailingAnchor.constraint(equalTo: podiumView.trailingAnchor, constant: -10),
-            thirdPlaceView.widthAnchor.constraint(equalToConstant: 100),
-            thirdPlaceView.heightAnchor.constraint(equalToConstant: 150)
-        ])
+           // Constraints for third place (right)
+           NSLayoutConstraint.activate([
+               thirdPlaceView.centerYAnchor.constraint(equalTo: podiumView.centerYAnchor, constant: 30),
+               thirdPlaceView.trailingAnchor.constraint(equalTo: podiumView.trailingAnchor, constant: -10),
+               thirdPlaceView.widthAnchor.constraint(equalToConstant: 100),
+               thirdPlaceView.heightAnchor.constraint(equalToConstant: 150)
+           ])
     }
 
     private func createPodiumUserView(user: LeaderboardUser, position: Int) -> UIView {
@@ -214,7 +214,7 @@ class LeaderboardViewController: UIViewController {
     private func fetchScoresAndDetails(friendIDs: [String], completion: @escaping ([LeaderboardUser]) -> Void) {
         var leaderboard: [LeaderboardUser] = []
         let group = DispatchGroup()
-
+        
         for friendID in friendIDs {
             group.enter()
             firestore.collection("users").document(friendID).getDocument { snapshot, error in
@@ -222,28 +222,37 @@ class LeaderboardViewController: UIViewController {
                     group.leave()
                     return
                 }
-
+                
                 let score = scoreData["score"] as? Int ?? 0
                 let profileImageURL = scoreData["profileImageURL"] as? String
-
+                
                 // Fetch details from Realtime Database for name and username
                 self.database.child("users").child(friendID).observeSingleEvent(of: .value) { userSnapshot in
-                    let username = (userSnapshot.value as? [String: Any])?["username"] as? String ?? "Unknown Username"
-                    let name = (userSnapshot.value as? [String: Any])?["name"] as? String ?? "Unknown Name"
-
-                    let user = LeaderboardUser(
-                        id: friendID,
-                        username: username,
-                        name: name,
-                        score: score,
-                        profileImageURL: profileImageURL
-                    )
-                    leaderboard.append(user)
+                    let userData = userSnapshot.value as? [String: Any]
+                    let rawUsername = userData?["username"] as? String
+                    let name = userData?["name"] as? String
+                    
+                    // Add @ symbol to username if it exists
+                    let username = rawUsername != nil ? "@\(rawUsername!)" : nil
+                    
+                    // Only add users with valid name and username
+                    if let username = username, let name = name {
+                        let user = LeaderboardUser(
+                            id: friendID,
+                            username: username,
+                            name: name,
+                            score: score,
+                            profileImageURL: profileImageURL
+                        )
+                        leaderboard.append(user)
+                    } else {
+                        print("Skipping user \(friendID) due to missing name or username.")
+                    }
                     group.leave()
                 }
             }
         }
-
+        
         group.notify(queue: .main) {
             completion(leaderboard)
         }
@@ -263,7 +272,7 @@ extension LeaderboardViewController: UITableViewDataSource, UITableViewDelegate 
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70 // Increased row height
+        return 70
     }
 }
 

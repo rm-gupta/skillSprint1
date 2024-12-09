@@ -6,6 +6,9 @@
 //
 
 import UIKit
+protocol LibraryTableViewCellDelegate: AnyObject {
+    func playButtonPressed(forCell cell: LibraryTableViewCell)
+}
 
 // Custom tabel view cell for the skill library tabel view
 class LibraryTableViewCell: UITableViewCell {
@@ -13,13 +16,19 @@ class LibraryTableViewCell: UITableViewCell {
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var difficultyLabel: UILabel!
     
+    weak var delegate: LibraryTableViewCellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         contentView.backgroundColor =  ColorThemeManager.shared.backgroundColor
     }
-    // This is not linked yet
+    
+    // WHen play button is pressed, play the current video
     @IBAction func playPressed(_ sender: UIButton) {
-        
+        // Notify the delegate when the play button is pressed
+        print("button pressed!")
+        delegate?.playButtonPressed(forCell: self)
     }
+   
 }
 

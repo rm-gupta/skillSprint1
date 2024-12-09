@@ -12,12 +12,14 @@ class Skills {
     var desc: String
     var instr: String
     var difficulty: String
-    init(id: String, title: String, desc: String, instr: String, difficulty: String) {
+    var vidLink: String?
+    init(id: String, title: String, desc: String, instr: String, difficulty: String, vidLink: String) {
         self.id = id
         self.title = title
         self.desc = desc
         self.instr = instr
         self.difficulty = difficulty
+        self.vidLink = vidLink
     }
 }
 

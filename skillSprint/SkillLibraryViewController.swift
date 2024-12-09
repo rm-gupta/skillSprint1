@@ -8,8 +8,10 @@
 import UIKit
 import FirebaseFirestore // imported to store data
 import FirebaseAuth
+import AVFoundation
+import AVKit
 
-class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class SkillLibraryViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, LibraryTableViewCellDelegate {
     
     var skillsList = [Skills]()
     var filteredList = [Skills]()
@@ -20,12 +22,14 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var filterBttn: UIButton!
     @IBOutlet weak var sortBttn: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var notFoundLabel: UILabel!
     
     var sortOption: String!
     var filterOption: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        nameField.delegate = self
         applyTheme()
         tableView.delegate = self
         tableView.dataSource = self
@@ -34,17 +38,26 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
         tableView.estimatedRowHeight = 128
         fetchSkills()
         prepareDropdown()
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
-        view.addGestureRecognizer(tapGesture)
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
+//        view.addGestureRecognizer(tapGesture)
     }
     
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        self.view.endEditing(true)
+    // Called when 'return' key pressed
+
+    func textFieldShouldReturn(_ textField:UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    // Called when the user clicks on the view outside of the UITextField
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+//    @objc private func dissmissKeyboard() {
+//        view.endEditing(true)
 //    }
-    
-    @objc private func dissmissKeyboard() {
-        view.endEditing(true)
-    }
     
     // Re-apply theme every time the view appears
     override func viewWillAppear(_ animated: Bool) {
@@ -159,38 +172,12 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
                 return order1 < order2
             }
         }
-                
+        updateNoUploadsLabel()
         tableView.reloadData()
     }
     
     // Load the all the skills to skillsList from Firestore
     func fetchSkills() {
-//        db.collection("skills").getDocuments { [weak self] snapshot, error in
-//            guard let self = self else { return }
-//            if let error = error {
-//                print("Error fetching skills: \(error.localizedDescription)")
-//                return
-//            }
-//            guard let documents = snapshot?.documents else {
-//                print("No documents in snapshot")
-//                return
-//            }
-//                        
-//            self.skillsList = documents.compactMap { document in
-//                let data = document.data()
-//                return Skills(
-//                    id: document.documentID,
-//                    title: data["title"] as? String ?? "",
-//                    desc: data["description"] as? String ?? "",
-//                    instr: data["instruction"] as? String ?? "",
-//                    difficulty: data["difficulty"] as? String ?? ""
-//                    )
-//                }
-//            self.filteredList = self.skillsList
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
-//        }
         guard let userID = Auth.auth().currentUser?.uid else {
             print("User is not authenticated.")
             return
@@ -206,10 +193,31 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
 
             guard let documents = snapshot?.documents else {
                 print("No documents in user's skills collection.")
+                self.skillsList = []
+                self.filteredList = []
                 return
             }
-
-            let skillIDs = documents.map { $0.documentID }
+            
+            // Create a dictionary of skill IDs and video links
+            var skillVideoLinks: [String: String] = [:]
+            for document in documents {
+                if let videoLink = document.data()["url"] as? String {
+                    skillVideoLinks[document.documentID] = videoLink
+                }
+            }
+            
+            let skillIDs = Array(skillVideoLinks.keys)
+//            let skillIDs = documents.map { $0.documentID }
+            
+            if skillIDs.isEmpty {
+                self.skillsList = []
+                self.filteredList = []
+                DispatchQueue.main.async {
+                    self.updateNoUploadsLabel()
+                    self.tableView.reloadData()
+                }
+                return
+            }
 
             // Step 2: Fetch skill details from the main skills collection using the skill IDs
             self.db.collection("skills").whereField(FieldPath.documentID(), in: skillIDs).getDocuments { snapshot, error in
@@ -219,24 +227,33 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
                 }
 
                 guard let documents = snapshot?.documents else {
-                    print("No documents in skills collection.")
+                    self.skillsList = []
+                    self.filteredList = []
+                    DispatchQueue.main.async {
+                        self.updateNoUploadsLabel()
+                        self.tableView.reloadData()
+                    }
                     return
                 }
 
                 self.skillsList = documents.compactMap { document in
                     let data = document.data()
+                    let skillID = document.documentID
+                    let videoLink = skillVideoLinks[skillID] ?? ""
                     return Skills(
-                        id: document.documentID,
+                        id: skillID,
                         title: data["title"] as? String ?? "",
                         desc: data["description"] as? String ?? "",
                         instr: data["instruction"] as? String ?? "",
-                        difficulty: data["difficulty"] as? String ?? ""
+                        difficulty: data["difficulty"] as? String ?? "",
+                        vidLink: videoLink
                     )
                 }
                 self.filteredList = self.skillsList
 
                 // Reload the table view on the main thread
                 DispatchQueue.main.async {
+                    self.updateNoUploadsLabel()
                     self.tableView.reloadData()
                 }
             }
@@ -258,6 +275,7 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
         let formattedInstructions = filteredList[row].desc.replacingOccurrences(of: "(\\d+\\.)", with: "\n$1", options: .regularExpression)
         cell.descLabel.text = formattedInstructions // sets text string label
         cell.difficultyLabel.text = "Difficulty: " + filteredList[row].difficulty
+        cell.delegate = self
         return cell
     }
     
@@ -266,6 +284,28 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    func playButtonPressed(forCell cell: LibraryTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let selectedSkill = filteredList[indexPath.row]
+            
+        // Get the video URL for the skill
+        guard let videoURLString = selectedSkill.vidLink, let videoURL = URL(string: videoURLString) else {
+            print("No video URL available for this skill.")
+            return
+        }
+            
+        // Play the video
+        playVideo(url: videoURL)
+    }
+    
+    func playVideo(url: URL) {
+        let player = AVPlayer(url: url)
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        present(playerViewController, animated: true) {
+            player.play()
+        }
+    }
     // When cell is pressed, leads user to the skill details screen, and
     // pass relevent information to the details screen
     override func prepare(for segue: UIStoryboardSegue, sender:Any?) {
@@ -279,6 +319,7 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
             detailVC.skillDesc = curSkill.desc
             detailVC.skillInstr = curSkill.instr
             detailVC.skillDiff = curSkill.difficulty
+            detailVC.skillID = curSkill.id
         }
     }
     
@@ -288,6 +329,13 @@ class SkillLibraryViewController: UIViewController, UITableViewDelegate, UITable
 
     }
     
+    func updateNoUploadsLabel() {
+        if filteredList.isEmpty {
+            notFoundLabel.isHidden = false
+        } else {
+            notFoundLabel.isHidden = true
+        }
+    }
 
 }
 

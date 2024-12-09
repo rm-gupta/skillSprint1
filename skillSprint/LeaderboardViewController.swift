@@ -75,7 +75,7 @@ class LeaderboardViewController: UIViewController {
 
            // Create views for the top 3 users
            let secondPlaceView = createPodiumUserView(user: topUsers[1], position: 2)
-           let firstPlaceView = createPodiumUserView(user: topUsers[0], position: 1)
+           let firstPlaceView = createPodiumUserView(user: topUsers[0], position: 1) // Mark as first place
            let thirdPlaceView = createPodiumUserView(user: topUsers[2], position: 3)
 
            podiumView.addSubview(secondPlaceView)
@@ -109,72 +109,100 @@ class LeaderboardViewController: UIViewController {
 
     private func createPodiumUserView(user: LeaderboardUser, position: Int) -> UIView {
         let container = UIView()
-        container.translatesAutoresizingMaskIntoConstraints = false
+            container.translatesAutoresizingMaskIntoConstraints = false
 
-        // Profile Image
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 40
-        imageView.clipsToBounds = true
-        imageView.backgroundColor = .gray // Placeholder
-        if let profileImageURL = user.profileImageURL {
-            imageView.loadImage(from: profileImageURL) // Load image from URL
+            // Profile Image
+            let imageView = UIImageView()
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.contentMode = .scaleAspectFill
+            imageView.layer.cornerRadius = 40
+            imageView.clipsToBounds = true
+            imageView.backgroundColor = .gray // Placeholder
+            if let profileImageURL = user.profileImageURL {
+                imageView.loadImage(from: profileImageURL) // Load image from URL
+            }
+
+            // Crown Image for First Place Only
+        let crownImageView = UIImageView()
+        if position == 1 { // Only add crown for the winner
+            crownImageView.image = UIImage(systemName: "crown.fill") // SF Symbol
+            crownImageView.tintColor = UIColor(red: 0.8, green: 0.7, blue: 0.1, alpha: 1) // Darker yellow
+            crownImageView.translatesAutoresizingMaskIntoConstraints = false
+            container.addSubview(crownImageView)
         }
 
-        // Name Label
-        let nameLabel = UILabel()
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.text = user.name
-        nameLabel.textAlignment = .center
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 14)
-        nameLabel.numberOfLines = 1
-        nameLabel.adjustsFontSizeToFitWidth = true
-        nameLabel.minimumScaleFactor = 0.7
+            // Name Label
+            let nameLabel = UILabel()
+            nameLabel.translatesAutoresizingMaskIntoConstraints = false
+            nameLabel.text = user.name
+            nameLabel.textAlignment = .center
+            nameLabel.font = UIFont.boldSystemFont(ofSize: 14)
+            nameLabel.numberOfLines = 1
+            nameLabel.adjustsFontSizeToFitWidth = true
+            nameLabel.minimumScaleFactor = 0.7
 
-        // Username Label
-        let usernameLabel = UILabel()
-        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
-        usernameLabel.text = user.username
-        usernameLabel.textAlignment = .center
-        usernameLabel.font = UIFont.systemFont(ofSize: 12)
-        usernameLabel.textColor = .gray
+            // Username Label
+            let usernameLabel = UILabel()
+            usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+            usernameLabel.text = user.username
+            usernameLabel.textAlignment = .center
+            usernameLabel.font = UIFont.systemFont(ofSize: 12)
+            usernameLabel.textColor = .gray
 
-        // Points Label
-        let pointsLabel = UILabel()
-        pointsLabel.translatesAutoresizingMaskIntoConstraints = false
-        pointsLabel.text = "\(user.score) points"
-        pointsLabel.textAlignment = .center
-        pointsLabel.font = UIFont.systemFont(ofSize: 12)
+            // Points Label
+            let pointsLabel = UILabel()
+            pointsLabel.translatesAutoresizingMaskIntoConstraints = false
+            pointsLabel.text = "\(user.score) points"
+            pointsLabel.textAlignment = .center
+            pointsLabel.font = UIFont.systemFont(ofSize: 12)
 
-        // Add to Container
-        container.addSubview(imageView)
-        container.addSubview(nameLabel)
-        container.addSubview(usernameLabel)
-        container.addSubview(pointsLabel)
+            // Add all subviews
+            container.addSubview(imageView)
+            container.addSubview(nameLabel)
+            container.addSubview(usernameLabel)
+            container.addSubview(pointsLabel)
 
-        // Constraints
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: container.topAnchor),
-            imageView.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 80),
-            imageView.heightAnchor.constraint(equalToConstant: 80),
+            // Constraints for Profile Image
+            NSLayoutConstraint.activate([
+                imageView.topAnchor.constraint(equalTo: container.topAnchor),
+                imageView.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+                imageView.widthAnchor.constraint(equalToConstant: 80),
+                imageView.heightAnchor.constraint(equalToConstant: 80)
+            ])
 
-            nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
-            nameLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            // Constraints for Crown Image (only for first place)
+        if position == 1 {
+            NSLayoutConstraint.activate([
+                crownImageView.bottomAnchor.constraint(equalTo: imageView.topAnchor, constant: -5), // Move it further above
+                crownImageView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor), // Centered horizontally
+                crownImageView.widthAnchor.constraint(equalToConstant: 27),
+                crownImageView.heightAnchor.constraint(equalToConstant: 27)
+            ])
+        }
 
-            usernameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 2),
-            usernameLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            usernameLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            // Constraints for Name Label
+            NSLayoutConstraint.activate([
+                nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
+                nameLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+                nameLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor)
+            ])
 
-            pointsLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 5),
-            pointsLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            pointsLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor),
-            pointsLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor)
-        ])
+            // Constraints for Username Label
+            NSLayoutConstraint.activate([
+                usernameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: position == 1 ? -5 : 2), // Adjust spacing for 1st place
+                usernameLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+                usernameLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor)
+            ])
 
-        return container
+            // Constraints for Points Label
+            NSLayoutConstraint.activate([
+                pointsLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 5),
+                pointsLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+                pointsLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+                pointsLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor)
+            ])
+
+            return container
     }
 
     private func fetchLeaderboard() {

@@ -54,14 +54,6 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
 
         // Load profile data for the current user from Firebase
         loadCurrentUserProfile()
-            
-        // Add camera shutter icon
-        let shutterButton = UIButton(type: .system)
-        let shutterImage = UIImage(named: "camShutterIcon")
-        shutterButton.setImage(shutterImage, for: .normal)
-        shutterButton.tintColor = .black
-        shutterButton.frame = CGRect(x: 340, y: 100, width: 30, height: 30)
-        view.addSubview(shutterButton)
     }
     
     @objc func settingsButtonTapped() {

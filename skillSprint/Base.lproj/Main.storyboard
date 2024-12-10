@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dlu-gK-Mua">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dlu-gK-Mua">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1415,15 +1415,12 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xSk-wJ-JwN">
                                                     <rect key="frame" x="243" y="43" width="100" height="100"/>
-                                                    <color key="backgroundColor" systemColor="systemGray4Color"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="100" id="1Dz-rT-NvC"/>
                                                         <constraint firstAttribute="width" constant="100" id="JWX-VG-4C7"/>
                                                     </constraints>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" image="play.fill" catalog="system">
-                                                        <color key="baseForegroundColor" red="0.95168481691919193" green="0.6338441104905147" blue="0.12775869899324638" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    </buttonConfiguration>
+                                                    <buttonConfiguration key="configuration" style="plain" image="playButton"/>
                                                     <connections>
                                                         <action selector="playPressed:" destination="3Tz-BR-wRp" eventType="touchUpInside" id="BMt-PO-jO6"/>
                                                     </connections>
@@ -1449,6 +1446,7 @@
                                         <connections>
                                             <outlet property="descLabel" destination="nct-Wo-K19" id="01p-K0-KWb"/>
                                             <outlet property="difficultyLabel" destination="slB-ZY-2n6" id="Q8G-4l-0Sb"/>
+                                            <outlet property="playButton" destination="xSk-wJ-JwN" id="lPy-6b-WMh"/>
                                             <outlet property="titleLabel" destination="Ihq-2z-NoI" id="egs-Ey-pI9"/>
                                             <segue destination="TFi-4N-ojX" kind="show" identifier="libToDetail" id="Wko-GH-aIg"/>
                                         </connections>
@@ -1697,7 +1695,7 @@
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="person.crop.circle.fill" catalog="system" width="128" height="123"/>
         <image name="person.crop.circle.fill" width="128" height="128"/>
-        <image name="play.fill" catalog="system" width="120" height="128"/>
+        <image name="playButton" width="100" height="100"/>
         <image name="record.circle" catalog="system" width="128" height="123"/>
         <image name="record.circle.fill" catalog="system" width="128" height="123"/>
         <image name="skillBg" width="804" height="830"/>
@@ -1712,9 +1710,6 @@
         </systemColor>
         <systemColor name="systemBrownColor">
             <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGray4Color">
-            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

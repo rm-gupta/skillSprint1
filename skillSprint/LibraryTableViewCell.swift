@@ -18,9 +18,11 @@ class LibraryTableViewCell: UITableViewCell {
     
     weak var delegate: LibraryTableViewCellDelegate?
     
+    @IBOutlet weak var playButton: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         contentView.backgroundColor =  ColorThemeManager.shared.backgroundColor
+
     }
     
     // WHen play button is pressed, play the current video

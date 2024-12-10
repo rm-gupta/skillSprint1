@@ -1,4 +1,6 @@
 # Contributions
+For Final release, please refer to the PDF file in the folder.
+
 ## Beta Release
 ### Divya Nitin (Release: 25%, Overall: 25%)
 - Implemented Settings screen

@@ -29,35 +29,25 @@ class SkillLibraryViewController: UIViewController, UITextFieldDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        nameField.delegate = self
         applyTheme()
+        searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
-        searchBar.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 128
         fetchSkills()
         prepareDropdown()
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
-//        view.addGestureRecognizer(tapGesture)
     }
     
-    // Called when 'return' key pressed
-
-    func textFieldShouldReturn(_ textField:UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    // Called when the user clicks on the view outside of the UITextField
-
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true) // Dismiss the keyboard
     }
     
-//    @objc private func dissmissKeyboard() {
-//        view.endEditing(true)
-//    }
+    // Dismiss keyboard when the 'Search' button is clicked
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder() // Dismiss the keyboard
+    }
     
     // Re-apply theme every time the view appears
     override func viewWillAppear(_ animated: Bool) {
@@ -281,7 +271,12 @@ class SkillLibraryViewController: UIViewController, UITextFieldDelegate, UITable
     
     // Make the cell gray only when tapping on it
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        searchBar.resignFirstResponder() // Dismiss the keyboard
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        searchBar.resignFirstResponder() // Dismiss the keyboard
     }
     
     func playButtonPressed(forCell cell: LibraryTableViewCell) {

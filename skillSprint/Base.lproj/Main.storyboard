@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dlu-gK-Mua">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dlu-gK-Mua">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -589,44 +589,44 @@
             <objects>
                 <viewController id="T3t-4C-JvU" customClass="SettingsViewController" customModule="skillSprint" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VhV-11-AHV">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tOi-8w-lWw">
-                                <rect key="frame" x="16" y="75" width="95" height="35"/>
+                                <rect key="frame" x="16" y="119" width="95" height="35"/>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skillBg" translatesAutoresizingMaskIntoConstraints="NO" id="jqV-VE-kUh">
-                                <rect key="frame" x="16" y="140" width="361" height="58"/>
+                                <rect key="frame" x="16" y="184" width="361" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="j3t-eG-VWk"/>
                                     <constraint firstAttribute="width" constant="361" id="zkx-YI-2rn"/>
                                 </constraints>
                             </imageView>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QoL-hE-4Aq">
-                                <rect key="frame" x="290" y="152" width="51" height="31"/>
+                                <rect key="frame" x="290" y="196" width="51" height="31"/>
                                 <connections>
                                     <action selector="darkModeSwitchChanged:" destination="T3t-4C-JvU" eventType="valueChanged" id="mKW-fH-H0D"/>
                                 </connections>
                             </switch>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skillBg" translatesAutoresizingMaskIntoConstraints="NO" id="33v-0p-1zT">
-                                <rect key="frame" x="16" y="266" width="361" height="90"/>
+                                <rect key="frame" x="16" y="310" width="361" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="361" id="2sF-AM-0YD"/>
                                     <constraint firstAttribute="height" constant="90" id="fRw-Xx-II5"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skillBg" translatesAutoresizingMaskIntoConstraints="NO" id="qqP-2n-o76">
-                                <rect key="frame" x="16" y="203" width="361" height="58"/>
+                                <rect key="frame" x="16" y="247" width="361" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="Ogg-ou-TRf"/>
                                     <constraint firstAttribute="width" constant="361" id="eRJ-4t-Q6g"/>
                                 </constraints>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="j8H-Mp-Lhu">
-                                <rect key="frame" x="35" y="304" width="323" height="32"/>
+                                <rect key="frame" x="35" y="348" width="323" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="323" id="O5F-xF-QUb"/>
                                     <constraint firstAttribute="height" constant="31" id="nyQ-xD-6RU"/>
@@ -641,7 +641,7 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Badge Visibility" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="veU-jz-gyh">
-                                <rect key="frame" x="35" y="277" width="105" height="18"/>
+                                <rect key="frame" x="35" y="321" width="105" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="9jY-zP-bEU"/>
                                 </constraints>
@@ -650,7 +650,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skill Difficulty Level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tpb-3j-q9D">
-                                <rect key="frame" x="35" y="221" width="155" height="22"/>
+                                <rect key="frame" x="35" y="265" width="155" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="1Gz-K6-FWm"/>
                                 </constraints>
@@ -659,7 +659,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7xY-3g-Rsq">
-                                <rect key="frame" x="326.33333333333331" y="213" width="36.666666666666686" height="34.333333333333343"/>
+                                <rect key="frame" x="326.33333333333331" y="257" width="36.666666666666686" height="34.333333333333314"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain">
                                     <imageReference key="image" image="chevron.forward" catalog="system" symbolScale="medium"/>
@@ -670,7 +670,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dark mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MNR-to-CmU">
-                                <rect key="frame" x="35" y="157" width="96" height="24"/>
+                                <rect key="frame" x="35" y="201" width="96" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="96" id="vy1-Hm-kBJ"/>
                                 </constraints>
@@ -733,41 +733,41 @@
             <objects>
                 <viewController id="b4v-qb-pzg" customClass="DifficultyLevelViewController" customModule="skillSprint" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NRt-dE-AA1">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Difficulty Level" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7HG-Xd-BmR">
-                                <rect key="frame" x="16" y="30" width="261" height="35"/>
+                                <rect key="frame" x="16" y="74" width="261" height="35"/>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skillBg" translatesAutoresizingMaskIntoConstraints="NO" id="iCk-9j-8BU">
-                                <rect key="frame" x="16" y="95" width="361" height="60"/>
+                                <rect key="frame" x="16" y="139" width="361" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Uoe-uE-Om9"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skillBg" translatesAutoresizingMaskIntoConstraints="NO" id="SHy-2m-IzB">
-                                <rect key="frame" x="16" y="225" width="361" height="60"/>
+                                <rect key="frame" x="16" y="269" width="361" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="IO6-K9-Bdi"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skillBg" translatesAutoresizingMaskIntoConstraints="NO" id="fT0-F9-ZiW">
-                                <rect key="frame" x="16" y="160" width="361" height="60"/>
+                                <rect key="frame" x="16" y="204" width="361" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="vIo-f2-MVC"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skillBg" translatesAutoresizingMaskIntoConstraints="NO" id="APJ-QE-5G9">
-                                <rect key="frame" x="16" y="290" width="361" height="60"/>
+                                <rect key="frame" x="16" y="334" width="361" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="CHk-aq-G55"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Easy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDp-ab-sGO">
-                                <rect key="frame" x="50" y="112" width="41.666666666666657" height="27"/>
+                                <rect key="frame" x="50" y="156" width="41.666666666666657" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="jPC-TM-n10"/>
                                 </constraints>
@@ -776,13 +776,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medium" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dO2-mG-FEB">
-                                <rect key="frame" x="50.000000000000007" y="180" width="69.666666666666686" height="18"/>
+                                <rect key="frame" x="50.000000000000007" y="224" width="69.666666666666686" height="18"/>
                                 <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Any" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgT-9V-BHw">
-                                <rect key="frame" x="50" y="310" width="34.666666666666657" height="25"/>
+                                <rect key="frame" x="50" y="354" width="34.666666666666657" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="6jg-oo-kb5"/>
                                 </constraints>
@@ -791,31 +791,31 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBU-IL-cfx">
-                                <rect key="frame" x="50" y="245" width="43.666666666666657" height="18"/>
+                                <rect key="frame" x="50" y="289" width="43.666666666666657" height="18"/>
                                 <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2tj-Tw-JYu">
-                                <rect key="frame" x="302" y="110" width="51" height="31"/>
+                                <rect key="frame" x="302" y="154" width="51" height="31"/>
                                 <connections>
                                     <action selector="easySwitchChanged:" destination="b4v-qb-pzg" eventType="touchUpInside" id="8Dq-B4-bEZ"/>
                                 </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uWF-8u-aWz">
-                                <rect key="frame" x="302" y="175" width="51" height="31"/>
+                                <rect key="frame" x="302" y="219" width="51" height="31"/>
                                 <connections>
                                     <action selector="mediumSwitchChanged:" destination="b4v-qb-pzg" eventType="touchUpInside" id="Rcm-lM-Tvi"/>
                                 </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mel-A2-lcc">
-                                <rect key="frame" x="302" y="240" width="51" height="31"/>
+                                <rect key="frame" x="302" y="284" width="51" height="31"/>
                                 <connections>
                                     <action selector="hardSwitchChanged:" destination="b4v-qb-pzg" eventType="touchUpInside" id="FVq-gc-4DR"/>
                                 </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3TG-Fm-v8x">
-                                <rect key="frame" x="302" y="305" width="51" height="31"/>
+                                <rect key="frame" x="302" y="349" width="51" height="31"/>
                                 <connections>
                                     <action selector="anySwitchChanged:" destination="b4v-qb-pzg" eventType="touchUpInside" id="aJ8-yR-BH8"/>
                                 </connections>
@@ -874,7 +874,7 @@
         <scene sceneID="Czw-n0-Fl0">
             <objects>
                 <viewController id="Hwb-Jo-dUs" customClass="PersonalProfileViewController" customModule="skillSprint" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="bI4-wl-e4N">
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="PersonalProfileViewController" id="bI4-wl-e4N">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -888,63 +888,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYO-37-PDE">
-                                <rect key="frame" x="29" y="409" width="160" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.49019610879999997" green="0.81176471709999998" blue="0.58823531870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="tintColor" red="0.48965427099999997" green="0.81200325490000003" blue="0.58441758899999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Edit Profile ">
-                                    <color key="baseBackgroundColor" red="0.49019610879999997" green="0.81176471709999998" blue="0.58823531870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </buttonConfiguration>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <real key="value" value="14.5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="createAccountButtonPressed:" destination="wr6-e1-dsr" eventType="touchUpInside" id="jgU-Na-2rV"/>
-                                    <segue destination="P5G-IS-yX2" kind="show" identifier="EditProfileSegue" id="qpn-0h-Mtx"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cRY-lK-ZUa">
-                                <rect key="frame" x="204" y="409" width="160" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.49019610879999997" green="0.81176471709999998" blue="0.58823531870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="tintColor" red="0.48965427099999997" green="0.81200325490000003" blue="0.58441758899999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Add Friends ">
-                                    <color key="baseBackgroundColor" red="0.49019610879999997" green="0.81176471709999998" blue="0.58823531870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </buttonConfiguration>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="102"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="createAccountButtonPressed:" destination="wr6-e1-dsr" eventType="touchUpInside" id="GC5-FB-fi2"/>
-                                    <segue destination="Pru-7O-bmB" kind="show" identifier="AddFriendsSegue" id="bv2-cD-RI5"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JCJ-sf-DFE">
-                                <rect key="frame" x="98" y="452" width="197.99999999991451" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.49019610879999997" green="0.81176471709999998" blue="0.58823531870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="tintColor" red="0.48965427099999997" green="0.81200325490000003" blue="0.58441758899999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="View Achievements ">
-                                    <color key="baseBackgroundColor" red="0.49019610879999997" green="0.81176471709999998" blue="0.58823531870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </buttonConfiguration>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="49"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="createAccountButtonPressed:" destination="wr6-e1-dsr" eventType="touchUpInside" id="pfx-Ii-qUb"/>
-                                    <segue destination="c5v-Va-7vY" kind="show" id="sg6-rY-4b5"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvc-de-exJ">
                                 <rect key="frame" x="7.5996991416068909" y="308.00000000007697" width="377.00000000003865" height="30.000000000019554"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -966,25 +909,6 @@
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLe-6k-Mnb">
-                                <rect key="frame" x="123" y="495" width="149.33333333333337" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.49019610879999997" green="0.81176471709999998" blue="0.58823531870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="tintColor" red="0.48965427099999997" green="0.81200325490000003" blue="0.58441758899999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Visit Skill Library">
-                                    <color key="baseBackgroundColor" red="0.49019610879999997" green="0.81176471709999998" blue="0.58823531870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </buttonConfiguration>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="49"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="createAccountButtonPressed:" destination="wr6-e1-dsr" eventType="touchUpInside" id="dOv-MG-YI0"/>
-                                    <segue destination="3L8-qW-mjq" kind="show" id="4ir-GD-pE9"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N8a-7D-Lcz">
                                 <rect key="frame" x="0.0" y="772" width="393" height="80"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
@@ -1016,8 +940,46 @@
                                     <segue destination="5Ps-Oi-2KY" kind="presentation" animates="NO" modalPresentationStyle="fullScreen" id="WC9-v6-ZaD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JCJ-sf-DFE">
+                                <rect key="frame" x="95" y="395" width="197.99999999991451" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.49019610879999997" green="0.81176471709999998" blue="0.58823531870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" red="0.48965427099999997" green="0.81200325490000003" blue="0.58441758899999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="View Achievements ">
+                                    <color key="baseBackgroundColor" red="0.49019610879999997" green="0.81176471709999998" blue="0.58823531870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="49"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="createAccountButtonPressed:" destination="wr6-e1-dsr" eventType="touchUpInside" id="pfx-Ii-qUb"/>
+                                    <segue destination="c5v-Va-7vY" kind="show" id="sg6-rY-4b5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLe-6k-Mnb">
+                                <rect key="frame" x="38" y="438" width="149.33333333333337" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.49019610879999997" green="0.81176471709999998" blue="0.58823531870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" red="0.48965427099999997" green="0.81200325490000003" blue="0.58441758899999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Visit Skill Library">
+                                    <color key="baseBackgroundColor" red="0.49019610879999997" green="0.81176471709999998" blue="0.58823531870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="49"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="createAccountButtonPressed:" destination="wr6-e1-dsr" eventType="touchUpInside" id="dOv-MG-YI0"/>
+                                    <segue destination="3L8-qW-mjq" kind="show" id="4ir-GD-pE9"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7wZ-Lk-3JG">
-                                <rect key="frame" x="117" y="538" width="162" height="35"/>
+                                <rect key="frame" x="195" y="438" width="162" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.49019610879999997" green="0.81176471709999998" blue="0.58823531870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" red="0.48965427099999997" green="0.81200325490000003" blue="0.58441758899999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1036,7 +998,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bae-Ja-dd0">
-                                <rect key="frame" x="118" y="581" width="160" height="35"/>
+                                <rect key="frame" x="113" y="481" width="160" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.49019610879999997" green="0.81176471709999998" blue="0.58823531870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" red="0.48965427099999997" green="0.81200325490000003" blue="0.58441758899999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1071,7 +1033,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="Gej-Od-LIu"/>
                     <connections>
-                        <outlet property="editProfButton" destination="JYO-37-PDE" id="kUl-z9-ECE"/>
                         <outlet property="nameLabel" destination="Bvc-de-exJ" id="xl1-Dk-jWL"/>
                         <outlet property="profImgView" destination="Cqv-5v-5de" id="Qhm-qP-PA7"/>
                         <outlet property="taglineLabel" destination="wHz-Nd-Kml" id="xpF-60-cfP"/>
@@ -1085,8 +1046,8 @@
         <!--Add Friends View Controller-->
         <scene sceneID="vlr-i7-xuj">
             <objects>
-                <viewController id="Pru-7O-bmB" customClass="AddFriendsViewController" customModule="skillSprint" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="fYb-tM-j4t">
+                <viewController restorationIdentifier="AddFriendsViewController" storyboardIdentifier="AddFriendsViewController" id="Pru-7O-bmB" customClass="AddFriendsViewController" customModule="skillSprint" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="AddFriendsViewController" id="fYb-tM-j4t">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="l0g-jh-uHQ"/>
@@ -1270,7 +1231,7 @@
         <!--Edit Profile View Controller-->
         <scene sceneID="alS-fn-3mf">
             <objects>
-                <viewController id="P5G-IS-yX2" customClass="EditProfileViewController" customModule="skillSprint" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditProfileViewController" id="P5G-IS-yX2" customClass="EditProfileViewController" customModule="skillSprint" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VfB-mM-MdL">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1324,7 +1285,7 @@
                                     <action selector="uploadUserPhoto:" destination="P5G-IS-yX2" eventType="touchUpInside" id="LKz-Xt-8VE"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person.crop.circle.fill" translatesAutoresizingMaskIntoConstraints="NO" id="VM2-xQ-SR6">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="EditProfileViewController" image="person.crop.circle.fill" translatesAutoresizingMaskIntoConstraints="NO" id="VM2-xQ-SR6">
                                 <rect key="frame" x="119" y="149.66666666666674" width="155" height="155.0000000000208"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1693,8 +1654,8 @@
         <image name="line.3.horizontal.decrease" catalog="system" width="128" height="73"/>
         <image name="person.circle" catalog="system" width="128" height="123"/>
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
-        <image name="person.crop.circle.fill" catalog="system" width="128" height="123"/>
         <image name="person.crop.circle.fill" width="128" height="128"/>
+        <image name="person.crop.circle.fill" catalog="system" width="128" height="123"/>
         <image name="playButton" width="100" height="100"/>
         <image name="record.circle" catalog="system" width="128" height="123"/>
         <image name="record.circle.fill" catalog="system" width="128" height="123"/>
@@ -1703,16 +1664,16 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

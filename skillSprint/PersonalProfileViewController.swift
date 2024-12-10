@@ -27,15 +27,12 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var taglineLabel: UILabel!
     @IBOutlet weak var profImgView: UIImageView!
-    @IBOutlet weak var editProfButton: UIButton!
     
     var currentName: String?
     var currentTagline: String?
     private var currentImageURL: String?
 
-    
-
-    
+ 
     let greenColor = UIColor(red: 125/255.0, green: 207/255.0, blue: 150/255.0, alpha: 1.0)
     
     // Firebase Database reference
@@ -45,15 +42,94 @@ class PersonalProfileViewController: UIViewController, TextChanger, ProfileImage
         super.viewDidLoad()
         applyTheme()
 
-        // Initialize the Firebase database reference
+        // Initialize Firebase database reference
         ref = Database.database().reference()
 
         // Set the username label from SharedData
         usernameLabel.text = SharedData.shared.usernameWithAtSymbol
-        editProfButton.backgroundColor = greenColor
+
+        // Add image views to the view hierarchy
+        view.addSubview(editProfileImageView)
+        view.addSubview(addFriendsImageView)
+
+        // Set constraints for image views
+        setUpImageViewConstraints()
+
+        // Add gesture recognizers
+        let editProfileTapGesture = UITapGestureRecognizer(target: self, action: #selector(editProfileTapped))
+        editProfileImageView.addGestureRecognizer(editProfileTapGesture)
+
+        let addFriendsTapGesture = UITapGestureRecognizer(target: self, action: #selector(addFriendsTapped))
+        addFriendsImageView.addGestureRecognizer(addFriendsTapGesture)
 
         // Load profile data for the current user from Firebase
         loadCurrentUserProfile()
+    }
+    
+    private func setUpImageViewConstraints() {
+        editProfileImageView.translatesAutoresizingMaskIntoConstraints = false
+        addFriendsImageView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            // Edit Profile Image Constraints
+            editProfileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            editProfileImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            editProfileImageView.widthAnchor.constraint(equalToConstant: 36), // Adjusted size
+            editProfileImageView.heightAnchor.constraint(equalToConstant: 36),
+
+            // Add Friends Image Constraints
+            addFriendsImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            addFriendsImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            addFriendsImageView.widthAnchor.constraint(equalToConstant: 36), // Adjusted size
+            addFriendsImageView.heightAnchor.constraint(equalToConstant: 36),
+        ])
+    }
+
+
+    
+    private let editProfileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "pencil") // Pencil icon
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .black
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
+
+    private let addFriendsImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "person.fill") // Person icon
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .black
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
+
+    
+    @objc func editProfileTapped() {
+        print("Edit Profile Tapped")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let editProfileVC = storyboard.instantiateViewController(withIdentifier: "EditProfileViewController") as? EditProfileViewController else {
+            print("EditProfileViewController not found")
+            return
+        }
+
+        editProfileVC.delegateText = self
+        editProfileVC.currentName = nameLabel.text
+        editProfileVC.currentTagline = taglineLabel.text
+
+        navigationController?.pushViewController(editProfileVC, animated: true)
+    }
+
+    @objc func addFriendsTapped() {
+        print("Add Friends Tapped")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil) // Replace "AddFriendsStoryboard" with the actual storyboard name
+        guard let addFriendsVC = storyboard.instantiateViewController(withIdentifier: "AddFriendsViewController") as? AddFriendsViewController else {
+            print("AddFriendsViewController not found")
+            return
+        }
+
+        navigationController?.pushViewController(addFriendsVC, animated: true)
     }
     
     @objc func settingsButtonTapped() {

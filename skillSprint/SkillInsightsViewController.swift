@@ -18,6 +18,7 @@ class SkillInsightsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchSkillData()
+        applyTheme() 
         loadUserStreakAndScore()
     }
     
@@ -201,6 +202,11 @@ class SkillInsightsViewController: UIViewController {
         ))
         baseLine.backgroundColor = .lightGray
         barGraphView.addSubview(baseLine)
+    }
+    
+    private func applyTheme() {
+        view.backgroundColor = ColorThemeManager.shared.backgroundColor
+
     }
 
        

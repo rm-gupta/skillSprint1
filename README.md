@@ -1,4 +1,6 @@
 # Contributions
+## Final Release
+Please refer to the PDF https://github.com/rm-gupta/skillSprint1/blob/main/ReadMe.pdf for final release specs.
 ## Beta Release
 ### Divya Nitin (Release: 25%, Overall: 25%)
 - Implemented Settings screen
